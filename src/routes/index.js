@@ -14,58 +14,60 @@ let menuArr=[];
 /*** 动态菜单 start***/
 let menuArrss=[];
 let userMenu = JSON.parse(appState.userMenu);
-function spread(menus) {
-    for (let i=0; i < menus.length; i++ ) {
-        let menu = menus[i];
-        if (menu.subs) {
-            spread(menu.subs)
-            delete menu.subs
+if(userMenu!==null){
+    function spread(menus) {
+        for (let i=0; i < menus.length; i++ ) {
+            let menu = menus[i];
+            if (menu.subs) {
+                spread(menu.subs)
+                delete menu.subs
+            }
+            menuArrss.push(menu)
         }
-        menuArrss.push(menu)
     }
-}
-spread(routesConfig.menus);
-let menus =[];
-function uniqueArray(array, key){
-    if(array.length>0){
-        let result = [array[0]];
-        for(let i = 1; i < array.length; i++){
-            let item = array[i];
-            let repeat = false;
-            for (let j = 0; j < result.length; j++) {
-                if (item[key] === result[j][key]) {
-                    repeat = true;
-                    break;
+    spread(routesConfig.menus);
+    let menus =[];
+    function uniqueArray(array, key){
+        if(array.length>0){
+            let result = [array[0]];
+            for(let i = 1; i < array.length; i++){
+                let item = array[i];
+                let repeat = false;
+                for (let j = 0; j < result.length; j++) {
+                    if (item[key] === result[j][key]) {
+                        repeat = true;
+                        break;
+                    }
+                }
+                if (!repeat) {
+                    result.push(item);
                 }
             }
-            if (!repeat) {
-                result.push(item);
+            return result || [];
+        }else{
+            return [];
+        }
+    };
+    let menuArrs = uniqueArray(menuArrss,'key')||[];
+    for (let i = 0;i<menuArrs.length;i++) {
+        for(let j =0;j<userMenu.length;j++){
+            if(menuArrs[i].key === userMenu[j].path){
+                menuArrs[i].id = userMenu[j].Id||'';
+                menuArrs[i].title = userMenu[j].menuName||'';
+                menuArrs[i].menuParentId = userMenu[j].menuParentId||'';
+                menus.push(menuArrs[i]);
             }
         }
-        return result || [];
-    }else{
-        return [];
     }
-};
-let menuArrs = uniqueArray(menuArrss,'key')||[];
-for (let i = 0;i<menuArrs.length;i++) {
-    for(let j =0;j<userMenu.length;j++){
-        if(menuArrs[i].key === userMenu[j].path){
-            menuArrs[i].id = userMenu[j].Id||'';
-            menuArrs[i].title = userMenu[j].menuName||'';
-            menuArrs[i].menuParentId = userMenu[j].menuParentId||'';
-            menus.push(menuArrs[i]);
-        }
-    }
+    routesConfig.menus=[];
+    routesConfig.menus = construct(menus, {
+        id: 'id',
+        pid: 'menuParentId',
+        children: 'subs'
+    });
+    routesConfig.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
+    /*** 动态菜单 end***/
 }
-routesConfig.menus=[];
-routesConfig.menus = construct(menus, {
-    id: 'id',
-    pid: 'menuParentId',
-    children: 'subs'
-});
-routesConfig.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
-/*** 动态菜单 end***/
 
 @inject('appState') @observer
 class CRouter extends Component {

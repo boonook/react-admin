@@ -89,7 +89,6 @@ class HttpRequest {
     request(options, withToken = true, showMsg = true) {
         const instance = axios.create();
         options = Object.assign(this.getInsideConfig(), options);
-        options.baseURL = options.baseURL;
         this.interceptors(instance, options.url, withToken)
         return instance(options)
             .then((res) => {
