@@ -9,9 +9,8 @@ export const getQueryParams = (url) => {
     const arr = url.split('?');
     if (arr && Array.isArray(arr) && arr.length > 0) {
         params = {};
-        arr[arr.length - 1].split('&').map(s => {
+        arr[arr.length - 1].split('&').map((s)=>{
             const p = s.split('=');
-            let _p = {};
             params[p[0]] = p[1];
         });
     } else {
@@ -38,13 +37,13 @@ export const merge = (def, obj) => {
 
         for (let i in obj) {
             // if its an object
-            if (obj[i] != null && obj[i].constructor == Object) {
+            if (obj[i] != null && obj[i].constructor === Object) {
                 def[i] = merge(def[i], obj[i]);
             }
             // if its an array, simple values need to be joined.  Object values need to be remerged.
             else if (obj[i] != null && (obj[i] instanceof Array) && obj[i].length > 0) {
                 // test to see if the first element is an object or not so we know the type of array we're dealing with.
-                if (obj[i][0].constructor == Object) {
+                if (obj[i][0].constructor === Object) {
                     let newobjs = [];
                     // create an index of all the existing object IDs for quick access.  There is no way to know how many items will be in the arrays.
                     let objids = {};
@@ -229,4 +228,45 @@ export const flattenTree=(tree,component)=>{
         return o;
     });
     return temp;
-}
+};
+
+export const makeFormData = params => {
+    if (!params) return new FormData();
+    if (typeof params !== "object") return new FormData();
+    let formData = new FormData();
+    Object.keys(params).forEach(k => {
+        if (params.hasOwnProperty(k) && !isEmpty(params[k])) {
+            ///如果需要添加到表单的值是数组
+            if (Array.isArray(params[k]) && !isEmpty(params[k])) {
+
+                params[k].forEach((i, index) => {
+
+                    ///如果是文件 直接添加到formDate
+                    if (i.constructor === File) {
+                        formData.append(k, i)
+                    }
+                    ///如果是对象 需要转换为 form字段[数组下标].对象的key 这个形式的key再添加到formData
+                    else if (typeof i === 'object') {
+                        Object.keys(i).forEach(kk => {
+                            formData.append(`${k}[${index}].${kk}`, i[kk]);
+                        });
+                    } else {
+                        formData.append(k, i)
+                    }
+                });
+            }
+            ///如果需要添加到表单的是对象
+            else if(params[k].constructor === File){
+                formData.append(k,params[k]);
+            }
+            else if (typeof params[k] === 'object') {
+                Object.keys(params[k]).forEach(kk => {
+                    formData.append(`${k}.${kk}`, params[k][kk]);
+                });
+            } else {
+                formData.append(k, params[k]);
+            }
+        }
+    });
+    return formData;
+};

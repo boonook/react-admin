@@ -9,12 +9,75 @@ import routesConfig from './config';
 import queryString from 'query-string';
 import {observer,inject} from 'mobx-react';
 import {construct} from "@aximario/json-tree";
+import appState from '../app-state/index'
 let menuArr=[];
+/*** 动态菜单 start***/
+let menuArrss=[];
+let userMenu = JSON.parse(appState.userMenu);
+function spread(menus) {
+    for (let i=0; i < menus.length; i++ ) {
+        let menu = menus[i];
+        if (menu.subs) {
+            spread(menu.subs)
+            delete menu.subs
+        }
+        menuArrss.push(menu)
+    }
+}
+spread(routesConfig.menus);
+let menus =[];
+function uniqueArray(array, key){
+    if(array.length>0){
+        let result = [array[0]];
+        for(let i = 1; i < array.length; i++){
+            let item = array[i];
+            let repeat = false;
+            for (let j = 0; j < result.length; j++) {
+                if (item[key] === result[j][key]) {
+                    repeat = true;
+                    break;
+                }
+            }
+            if (!repeat) {
+                result.push(item);
+            }
+        }
+        return result || [];
+    }else{
+        return [];
+    }
+};
+let menuArrs = uniqueArray(menuArrss,'key')||[];
+for (let i = 0;i<menuArrs.length;i++) {
+    for(let j =0;j<userMenu.length;j++){
+        if(menuArrs[i].key === userMenu[j].path){
+            menuArrs[i].id = userMenu[j].Id||'';
+            menuArrs[i].title = userMenu[j].menuName||'';
+            menuArrs[i].menuParentId = userMenu[j].menuParentId||'';
+            menus.push(menuArrs[i]);
+        }
+    }
+}
+routesConfig.menus=[];
+routesConfig.menus = construct(menus, {
+    id: 'id',
+    pid: 'menuParentId',
+    children: 'subs'
+});
+routesConfig.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
+/*** 动态菜单 end***/
 
 @inject('appState') @observer
 class CRouter extends Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            routesConfig:{}
+        };
+    }
 
+    componentDidMount() {
+        console.log('AllComponents',AllComponents)
     }
 
     spread=(menus)=>{
@@ -28,20 +91,6 @@ class CRouter extends Component {
         }
     }
 
-    requireAuth = (permission, component) => {
-        const auth = {
-            permissions:["auth", "auth/testPage", "auth/authPage", "auth/authPage/edit", "auth/authPage/visit"],
-            role: "系统管理员",
-            roleType: 1,
-            uid: 1,
-            userName: "系统管理员",
-            isFetching: false,
-            timeStamp: 1567878122869
-        };
-        const { permissions } = auth.permissions;
-        if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
-        return component;
-    };
     uniqueArray=(array, key)=>{
         if(array.length>0){
             let result = [array[0]];
@@ -82,6 +131,7 @@ class CRouter extends Component {
                 }
             }
         }
+        routesConfig.menus=[];
         routesConfig.menus = construct(menus, {
             id: 'id',
             pid: 'menuParentId',
@@ -97,7 +147,6 @@ class CRouter extends Component {
                     Object.keys(routesConfig).map(key =>
                         routesConfig[key].map(r => {
                             const route = r => {
-                                ////这里是获取所有的本地菜单
                                 const Component = AllComponents[r.component];
                                 return (
                                     <Route

@@ -27,9 +27,15 @@ export default {
                 { key: '/app/seetingManage/user', title: '用户管理', component: 'user'},
                 { key: '/app/seetingManage/role', title: '角色管理', component: 'role'}
             ]
+        },
+        {
+            key: '/app/SelfCenter', title: '个人中心', icon: 'scan',
+            subs: [
+                { key: '/app/SelfCenter/SelfInfo', title: '个人信息', component: 'SelfInfo'}
+            ]
         }
     ],
     others: [
         { key: '/app/test/test', title: '测试菜单', icon: 'mobile', component: 'test' },
-    ] // 非菜单相关路由
+    ]
 }

@@ -1,9 +1,12 @@
 import axios from 'axios';
 import * as baseURL from '../config/index';
-import appState from '../app-state/index'
+import appState from '../app-state/index';
 /**
  * 请求
  */
+console.log('process.env.NODE_ENV----------',process.env.NODE_ENV);
+console.log('baseURL----------',baseURL);
+
 class HttpRequest {
     constructor(baseUrl = baseURL) {
         this.baseUrl = baseUrl

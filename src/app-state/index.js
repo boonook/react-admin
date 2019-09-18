@@ -29,6 +29,16 @@ class AppState {
         setToken(info.token||"");
         setUserInfo(info.userInfo[0]||{})
     }
+    @action loginOut(data){
+        this.userInfo ={};
+        this.isLogin = false;
+        this.token = "";
+        this.userMenu =null;
+        setIsLogin(false);
+        setToken("");
+        setUserInfo(null);
+        setUserMenu(null);
+    }
 }
 
 const appState = new AppState();

@@ -33,7 +33,5 @@ export const setUserMenu = (data) => {
     Cookie.set('userMenu',JSON.stringify(data))
 }
 export const getUserMenu = () => {
-     let data = Cookie.get('userMenu');
-     debugger
-    return data;
+    return Cookie.get('userMenu');
 }

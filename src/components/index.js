@@ -11,6 +11,7 @@ import notice from './newsManage/notice';
 import newsCenter from './newsManage/newsCenter';
 import user from './seetingManage/user';
 import role from './seetingManage/role'
+import SelfInfo from './selfCenter/SelfInfo'
 import test from './test'
 
 export default {
@@ -23,5 +24,6 @@ export default {
     newsCenter,
     user,
     role,
-    test
+    test,
+    SelfInfo
 }

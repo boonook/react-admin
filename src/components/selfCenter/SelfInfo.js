@@ -3,17 +3,19 @@
  */
 import React from 'react';
 
-class newsCenter extends React.Component {
+class SelfInfo extends React.Component {
     state = {
-
+        size: 'default',
+        loading: false,
+        iconLoading: false,
     };
     render() {
         return (
             <div className="gutter-example button-demo">
-                <p>新闻中心</p>
+                <p>个人信息</p>
             </div>
         )
     }
 }
 
-export default newsCenter;
+export default SelfInfo;
