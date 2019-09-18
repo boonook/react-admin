@@ -1,11 +1,10 @@
 import axios from 'axios';
-import * as baseURL from '../config/index';
+import config from '../config/index';
 import appState from '../app-state/index';
 /**
  * 请求
  */
-console.log('process.env.NODE_ENV----------',process.env.NODE_ENV);
-console.log('baseURL----------',baseURL);
+const baseURL = process.env.NODE_ENV+''==='development'?config.baseUrl.dev:config.baseUrl.pro;
 
 class HttpRequest {
     constructor(baseUrl = baseURL) {
@@ -90,7 +89,7 @@ class HttpRequest {
     request(options, withToken = true, showMsg = true) {
         const instance = axios.create();
         options = Object.assign(this.getInsideConfig(), options);
-        options.baseURL = options.baseURL.baseURL;
+        options.baseURL = options.baseURL;
         this.interceptors(instance, options.url, withToken)
         return instance(options)
             .then((res) => {

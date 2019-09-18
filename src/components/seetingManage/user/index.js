@@ -114,11 +114,11 @@ class user extends React.Component {
     };
 
     handleDelete=(data)=>{
-        debugger
+
     }
 
     demo=()=>{
-        debugger
+
     }
 
     render() {

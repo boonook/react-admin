@@ -22,9 +22,8 @@ class notice extends React.Component {
         let params={
             file:this.state.file
         };
-        debugger
         upload(params).then(res=>{
-            debugger
+
         })
     };
 

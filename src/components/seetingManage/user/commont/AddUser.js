@@ -17,7 +17,6 @@ class AddUser extends React.Component {
     }
 
     myName=()=>{
-        debugger
         this.setState({
             visible:true
         })
