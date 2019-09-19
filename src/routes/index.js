@@ -13,8 +13,8 @@ import appState from '../app-state/index'
 let menuArr=[];
 /*** 动态菜单 start***/
 let menuArrss=[];
-let userMenu = JSON.parse(appState.userMenu);
-if(userMenu!==null){
+if(appState.isLogin+''==='true'){
+    let userMenu = JSON.parse(appState.userMenu);
     function spread(menus) {
         for (let i=0; i < menus.length; i++ ) {
             let menu = menus[i];
