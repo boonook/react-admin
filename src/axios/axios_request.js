@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 import config from '../config/index';
 import appState from '../app-state/index';
 /**
@@ -23,8 +24,8 @@ class HttpRequest {
     }
 
     handleError(error){
-        const msg = ((error.message === 'Network Error')?'服务器内部错误!':error.message) || '服务器内部错误'
-        if(!error.code) return msg
+        const message = ((error.message === 'Network Error')?'服务器内部错误!':error.message) || '服务器内部错误'
+        if(!error.code) return message
     }
 
     /**
@@ -54,16 +55,16 @@ class HttpRequest {
                 try {
                     // result = eval(`(${result})`)
                 }catch (e) {
-                    return {data:res.data, code :200, rel:true}
+                    return {data:res.data, code :200, rel:true,message:res.message}
                 }
             }
 
             if(res.data instanceof Blob){
-                return {data:res.data, code :200, msg:"success", rel:true}
+                return {data:res.data, code :200, message:res.message, rel:true}
             }
-            const {code, data, rel=true} = result;
+            const {code, data, rel=true,message} = result;
 
-            return {data, code, rel}
+            return {data, code, rel,message}
         }, (error) => {
 
             const errorMsg = error.message
@@ -86,15 +87,18 @@ class HttpRequest {
      * @param {boolean} showMsg
      * @return {Promise}
      */
-    request(options, withToken = true, showMsg = true) {
+    request(options, withToken = true, showMsg = false) {
         const instance = axios.create();
         options = Object.assign(this.getInsideConfig(), options);
         this.interceptors(instance, options.url, withToken)
-        return instance(options)
-            .then((res) => {
-                return res
-            })
-            .catch(this.handleError)
+        return instance(options).then((res) => {
+            if(showMsg && showMsg){
+                message.info(res.message,2)
+            }
+            return res
+            }).catch(
+                this.handleError
+        )
     }
 }
 

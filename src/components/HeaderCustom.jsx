@@ -47,6 +47,10 @@ class HeaderCustom extends Component {
     handleVisibleChange = (visible) => {
         this.setState({ visible });
     };
+    ///个人信息
+    selfInfo=()=>{
+        this.props.history.push('/app/SelfCenter/SelfInfo')
+    }
     render() {
         const { responsive = { data: {} }, path } = this.props;
         return (
@@ -83,7 +87,7 @@ class HeaderCustom extends Component {
                     <SubMenu title={<span className="avatar"><img src={avater} alt="头像" /><i className="on bottom b-white" /></span>}>
                         <MenuItemGroup title="用户中心">
                             <Menu.Item key="setting:1">你好 - {this.props.appState.userInfo.userName}</Menu.Item>
-                            <Menu.Item key="setting:2">个人信息</Menu.Item>
+                            <Menu.Item key="setting:2" onClick={this.selfInfo}>个人信息</Menu.Item>
                             <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
                         </MenuItemGroup>
                     </SubMenu>

@@ -9,10 +9,14 @@ export const getQueryParams = (url) => {
     const arr = url.split('?');
     if (arr && Array.isArray(arr) && arr.length > 0) {
         params = {};
-        arr[arr.length - 1].split('&').map((s)=>{
-            const p = s.split('=');
+        for(let i=0;i<arr[arr.length - 1].split('&');i++){
+            const p = arr[arr.length - 1][i].split('=');
             params[p[0]] = p[1];
-        });
+        }
+        // arr[arr.length - 1].split('&').map(s=>{
+        //     const p = s.split('=');
+        //     params[p[0]] = p[1];
+        // });
     } else {
         return null;
     }
