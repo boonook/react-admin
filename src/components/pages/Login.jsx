@@ -13,8 +13,8 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName:'boonook',
-            userPwd:'123456'
+            userName:'',
+            userPwd:''
         };
     }
 
@@ -32,9 +32,9 @@ class Login extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 let params={
-                    userName:'admin',
-                    userPwd:'admin'
-                }
+                    userName:this.state.userName,
+                    userPwd:this.state.userPwd
+                };
                 login(params).then(res=>{
                     if(res.code+''==='200'){
                         if(res.rel){
@@ -61,7 +61,20 @@ class Login extends React.Component {
                 })
             }
         });
+    };
+
+    getUserName=(data)=>{
+        this.setState({
+            userName:data.nativeEvent.target.value
+        })
+    };
+
+    getUserPwd=(data)=>{
+        this.setState({
+            userPwd:data.nativeEvent.target.value
+        })
     }
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -74,23 +87,23 @@ class Login extends React.Component {
                     <Form style={{maxWidth: '300px'}}>
                         <Form.Item>
                             {getFieldDecorator('userName', {
-                                initialValue:'',
+                                initialValue:this.state.userName,
                                 rules: [{ required: true, message: '请输入用户名!' }],
                             })(
-                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入用户名" />
+                                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入用户名"  onChange={value=>{this.getUserName(value)}}/>
                             )}
                         </Form.Item>
                         <Form.Item>
                             {getFieldDecorator('userPwd', {
-                                initialValue:'',
+                                initialValue:this.state.userPwd,
                                 rules: [{ required: true, message: '请输入密码!' }],
                             })(
-                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码" />
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码"  onChange={value=>{this.getUserPwd(value)}}/>
                             )}
                         </Form.Item>
                         <Form.Item>
-                            <span className="login-form-forgot" href="" style={{float: 'left'}}>注册</span>
-                            <span className="login-form-forgot" href="" style={{float: 'right'}}>忘记密码</span>
+                            <span className="login-form-forgot" style={{float: 'left'}}>注册</span>
+                            <span className="login-form-forgot" style={{float: 'right'}}>忘记密码</span>
                             <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}} onClick={(e)=>this.handleSubmits(e)}>
                                 登录
                             </Button>

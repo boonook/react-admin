@@ -51,8 +51,6 @@ class AssignPermissions extends React.Component {
     };
 
     getRoleList=()=>{
-        console.log('0000000000000000000000',this.state.orgRoleList);
-        debugger
         getRoleList().then(res=>{
             if(res && res.code+''==='200'){
                 let data = res.data||[];
@@ -73,7 +71,7 @@ class AssignPermissions extends React.Component {
                 let item = array[i];
                 let repeat = false;
                 for (let j = 0; j < result.length; j++) {
-                    if (item[key] == result[j][key]) {
+                    if (item[key] === result[j][key]) {
                         repeat = true;
                         break;
                     }
@@ -97,7 +95,7 @@ class AssignPermissions extends React.Component {
                 let ss=true;
                 let aa=true;
                 for(let arr_2=0;arr_2<childrenArray.length;arr_2++){
-                    if(parentArray[arr_1].Id!=childrenArray[arr_2].Id && aa==true){
+                    if(parentArray[arr_1].Id!==childrenArray[arr_2].Id && aa===true){
                         ss=false;
                     }
                     else{
@@ -105,7 +103,7 @@ class AssignPermissions extends React.Component {
                         aa=false;
                     }
                 }
-                if(ss==false){
+                if(ss===false){
                     let pro_sum=parentArray[arr_1];
                     arr_null.push(pro_sum);
                 }
