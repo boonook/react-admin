@@ -50,7 +50,11 @@ class HeaderCustom extends Component {
     ///个人信息
     selfInfo=()=>{
         this.props.history.push('/app/SelfCenter/SelfInfo')
-    }
+    };
+    ///消息通知
+    onViewMessage=()=>{
+
+    };
     render() {
         const { responsive = { data: {} }, path } = this.props;
         return (
@@ -79,7 +83,7 @@ class HeaderCustom extends Component {
                     <Menu.Item key="full" onClick={this.screenFull} >
                         <Icon type="arrows-alt" onClick={this.screenFull} />
                     </Menu.Item>
-                    <Menu.Item key="1">
+                    <Menu.Item key="1" onClick={this.onViewMessage}>
                         <Badge count={25} overflowCount={10} style={{marginLeft: 10}}>
                             <Icon type="notification" />
                         </Badge>
