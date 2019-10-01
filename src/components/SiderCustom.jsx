@@ -4,11 +4,11 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
-import routes from '../routes/config';
+import {observer,inject} from 'mobx-react';
 import SiderMenu from './SiderMenu';
-
 const { Sider } = Layout;
 
+@inject('appState') @observer
 class SiderCustom extends Component {
     static getDerivedStateFromProps (props, state) {
         if (props.collapsed !== state.collapsed) {
@@ -62,6 +62,7 @@ class SiderCustom extends Component {
         })
     };
     render() {
+        let userMenu = this.props.appState.userMenu?JSON.parse(this.props.appState.userMenu):{menus:[],others:[]};
         const { selectedKey, openKey, firstHide, collapsed } = this.state;
         return (
             <Sider
@@ -72,7 +73,7 @@ class SiderCustom extends Component {
             >
                 <div className="logo"></div>
                 <SiderMenu
-                    menus={routes.menus}
+                    menus={userMenu.menus}
                     onClick={this.menuClick}
                     mode="inline"
                     selectedKeys={[selectedKey]}

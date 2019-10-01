@@ -7,7 +7,6 @@ import DocumentTitle from 'react-document-title';
 import {observer,inject} from 'mobx-react';
 import AllComponents from '../components';
 import queryString from 'query-string';
-import routesConfig from './config';
 
 @inject('appState') @observer
 class CRouter extends Component {
@@ -19,10 +18,11 @@ class CRouter extends Component {
         return component;
     };
     render() {
+        let userMenu = this.props.appState.userMenu?JSON.parse(this.props.appState.userMenu):{menus:[],others:[]};
         return (
             <Switch>
-                {Object.keys(routesConfig).map(key =>
-                    routesConfig[key].map(r => {
+                {Object.keys(userMenu).map(key =>
+                    userMenu[key].map(r => {
                         const route = r => {
                             const Component = AllComponents[r.component];
                             return (

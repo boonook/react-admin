@@ -133,11 +133,11 @@ class AssignPermissions extends React.Component {
     onDel=()=>{
         ////添加到右侧
        console.log(this.state.dataLeft);
-        this.state.orgRoleList.map(item=>{
-            this.state.dataLeft.map(it=>{
+        this.state.orgRoleList.forEach(item=>{
+            this.state.dataLeft.forEach(it=>{
                 if(item.Id+''===(it+'')){
                     this.state.roleList.push(item);
-                    this.state.selfRoleList.map((i,index)=>{
+                    this.state.selfRoleList.forEach((i,index)=>{
                         if(i.Id===item.Id){
                             this.state.selfRoleList.splice(index,1);
                         }
@@ -152,11 +152,11 @@ class AssignPermissions extends React.Component {
 
     onAdd=()=>{
         ///添加到左侧
-        this.state.orgRoleList.map(item=>{
-            this.state.dataRight.map(it=>{
+        this.state.orgRoleList.forEach(item=>{
+            this.state.dataRight.forEach(it=>{
                 if(item.Id+''===(it+'')){
                     this.state.selfRoleList.push(item);
-                    this.state.roleList.map((i,index)=>{
+                    this.state.roleList.forEach((i,index)=>{
                         if(i.Id===item.Id){
                             this.state.roleList.splice(index,1);
                         }
@@ -175,7 +175,7 @@ class AssignPermissions extends React.Component {
         let id = this.state.data?(this.state.data.id?this.state.data.id:''):'';
         let roleId = [];
         console.log('---------------------------',this.state.selfRoleList)
-        this.state.selfRoleList.map(item=>{
+        this.state.selfRoleList.forEach(item=>{
             if(item.Id){
                 roleId.push(item.Id);
             }
@@ -214,7 +214,7 @@ class AssignPermissions extends React.Component {
                                 <p>当前用户角色</p>
                                 <Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeLeft}>
                                     <Row>
-                                        {this.state.selfRoleList.map((item,index)=>{
+                                        {this.state.selfRoleList.forEach((item,index)=>{
                                             if(item.Id){
                                                 return ( <Col span={24} key={item.Id}>
                                                     <Checkbox value={item.Id}>{item.roleName}</Checkbox>
@@ -232,7 +232,7 @@ class AssignPermissions extends React.Component {
                                 <p>所有剩余角色</p>
                                 <Checkbox.Group style={{ width: '100%' }}  onChange={this.onChangeRight}>
                                     <Row>
-                                        {this.state.roleList.map((item,index)=>{
+                                        {this.state.roleList.forEach((item,index)=>{
                                             if(item.Id){
                                                 return ( <Col span={24} key={item.Id}>
                                                     <Checkbox value={item.Id}>{item.roleName}</Checkbox>
