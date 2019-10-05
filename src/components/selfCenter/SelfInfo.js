@@ -2,7 +2,6 @@
  * Created by hao.cheng on 2017/4/23.
  */
 import React from 'react';
-import {Card} from 'antd'
 import './SelfInfo.less';
 
 class SelfInfo extends React.Component {

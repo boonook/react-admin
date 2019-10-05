@@ -214,11 +214,13 @@ class AssignPermissions extends React.Component {
                                 <p>当前用户角色</p>
                                 <Checkbox.Group style={{ width: '100%' }} onChange={this.onChangeLeft}>
                                     <Row>
-                                        {this.state.selfRoleList.forEach((item,index)=>{
+                                        {this.state.selfRoleList.map((item,index)=>{
                                             if(item.Id){
-                                                return ( <Col span={24} key={item.Id}>
+                                                return ( <Col span={24} key={index}>
                                                     <Checkbox value={item.Id}>{item.roleName}</Checkbox>
                                                 </Col>)
+                                            }else{
+                                                return null
                                             }
                                         })}
                                     </Row>
@@ -232,11 +234,13 @@ class AssignPermissions extends React.Component {
                                 <p>所有剩余角色</p>
                                 <Checkbox.Group style={{ width: '100%' }}  onChange={this.onChangeRight}>
                                     <Row>
-                                        {this.state.roleList.forEach((item,index)=>{
+                                        {this.state.roleList.map((item,index)=>{
                                             if(item.Id){
-                                                return ( <Col span={24} key={item.Id}>
+                                                return ( <Col span={24} key={index}>
                                                     <Checkbox value={item.Id}>{item.roleName}</Checkbox>
                                                 </Col>)
+                                            }else{
+                                                return null
                                             }
                                         })}
                                     </Row>

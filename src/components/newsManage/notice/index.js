@@ -22,6 +22,10 @@ class notice extends React.Component {
         let params={
             file:this.state.file
         };
+        // let params={
+        //     id:1,
+        //     name:'boonook'
+        // }
         upload(params).then(res=>{
 
         })
