@@ -147,6 +147,13 @@ class newsCenter extends React.Component {
         this.getDada();
     }
 
+    onEditor=(data)=>{
+        this.child.myName('edit',data)
+        // getNewsDetail(data.id).then(res=>{
+        //     debugger
+        // })
+    }
+
     render() {
         return (
             <div className="gutter-example button-demo">

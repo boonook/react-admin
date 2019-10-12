@@ -1,0 +1,56 @@
+.file_item{
+  display: flex;
+  flex-direction:row;
+  cursor: pointer;
+  color:#999;
+  font-size:12px;
+  border-bottom:1px solid #ccc;
+}
+.file_item_name{
+  flex:1;
+}
+.file_item_del span{
+  margin-left:10px;
+}
+.file_item_down span{
+  margin-left:10px;
+}
+.file_list_box{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.file_list_box li{
+  padding:0 10px;
+  border-radius:5px;
+}
+
+.file_item_down{
+  display:none;
+}
+.file_item_del{
+  display:none;
+}
+
+.file_list_box li:hover{
+  background-color:#ccc;
+  .file_item_name{
+    color:#fff;
+  }
+  .file_item_down{
+    display:block;
+    color:#fff;
+  }
+  .file_item_del{
+    display:block;
+    color:#fff;
+  }
+}
+.file_item_del_icon{
+  color:red;
+  margin-left:10px;
+}
+.file_item_del_icon_down{
+  color:green;
+  margin-left:10px;
+}

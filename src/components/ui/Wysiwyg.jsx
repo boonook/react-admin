@@ -19,6 +19,17 @@ class Wysiwyg extends Component {
         });
     };
 
+    componentDidMount(){
+
+    }
+
+    componentWillUnmount() {
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+    }
 
     onEditorStateChange = (editorState) => {
         this.setState({
@@ -47,6 +58,7 @@ class Wysiwyg extends Component {
 
 
     render() {
+        console.log(this);
         const { editorState } = this.state;
         return (
             <div className="gutter-example button-demo">

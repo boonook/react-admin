@@ -3,8 +3,10 @@ import {Input, Modal, Form} from 'antd';
 import { connectAlita } from 'redux-alita';
 import {observer,inject} from 'mobx-react';
 import Wysiwyg from "../../../ui/Wysiwyg";
-import {addNewslist} from '../../../../api/newsManage'
-
+import {base64Upload} from "../../../../api/uploadFile";
+import { addNewslist,getNewsDetail } from '../../../../api/newsManage';
+import {getFilePath} from '../../../../libs/tools'
+import Base64UploadModel from "../../../plug/base64UploadModel/Base64UploadModel";
 @inject('appState') @observer
 class AddNews extends React.Component {
     constructor(props) {
@@ -14,7 +16,11 @@ class AddNews extends React.Component {
             remark:'',
             title:'',
             content:'',
-            summary:''
+            summary:'',
+            file:[],
+            data:null,
+            filePath:null,
+            base64:null
         }
     }
     componentDidMount(){
@@ -24,10 +30,42 @@ class AddNews extends React.Component {
         })
     }
 
-    myName=()=>{
-        this.setState({
-            visible:true
-        });
+    myName=(status,data)=>{
+        if(status+''==='edit'){
+            this.setState({
+                visible:true,
+                status:'edit',
+                data:data
+            },()=>{
+                this.getDetail(data.id||'');
+            });
+        }else{
+            this.setState({
+                visible:true,
+                status:'add',
+                data:data
+            });
+        }
+
+    };
+
+    getDetail=(id)=>{
+        getNewsDetail(id).then(res=>{
+            if(res && res.code+''==='200'){
+                let data = res.data||{};
+               this.setState({
+                   remark:data.remark,
+                   title:data.title,
+                   content:data.content,
+                   summary:data.summary,
+                   filePath:getFilePath(data.filePath),
+                   file:[{name:data.filePath}],
+               },()=>{
+                   console.log(this)
+                   debugger
+               })
+            }
+        })
     };
 
     ///点击确定
@@ -35,13 +73,24 @@ class AddNews extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-               let params ={
-                   ...this.state,
-                   createUserId:this.props.appState.userInfo.id
-               };
-                addNewslist(params).then(res=>{
-                   debugger
-                })
+                let p={
+                    file:this.state.base64
+                };
+                base64Upload(p).then(res=>{
+                    if(res && res.code+''==='200'){
+                        let data =res.data||{};
+                        let p = {
+                            ...this.state,
+                            filePath:data.filePath||'',
+                            createUserId:this.props.appState.userInfo.id
+                        };
+                        addNewslist(p).then(re=>{
+                            if(re && re.code+'' ==='200'){
+
+                            }
+                        })
+                    }
+                });
             }
         });
     };
@@ -78,6 +127,28 @@ class AddNews extends React.Component {
       })
     };
 
+    getFile=(data)=>{
+        this.setState({
+            file:data[0]
+        })
+    };
+
+    onRef = (ref) => {//react新版本处理方式
+        this.imgCorpUpload = ref
+    };
+
+    onUploadImage=()=>{
+        this.imgCorpUpload.myName();
+    };
+
+    onSave=(data,base64)=>{
+        debugger
+        this.setState({
+            filePath:data,
+            base64
+        })
+    };
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -108,6 +179,7 @@ class AddNews extends React.Component {
                     cancelText="取消"
                 >
                     <div>
+
                         <Form {...formItemLayout}>
                             <Form.Item label='标题'>
                                 {getFieldDecorator('title', {
@@ -131,6 +203,21 @@ class AddNews extends React.Component {
                                     ],
                                 })(<Input.TextArea autosize placeholder="摘要" onChange={value=>{this.getSummary(value)}}/>)}
                             </Form.Item>
+                            <Form.Item label='封面图片'>
+                                {getFieldDecorator('content', {
+                                    initialValue:this.state.content,
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '内容',
+                                        },
+                                    ],
+                                })(<div>
+                                    <div onClick={this.onUploadImage} style={{width:'200px',height:'100px',backgroundColor:'#f4f4f4'}}>
+                                        <img src={this.state.filePath} width={200} height={100} alt=""/>
+                                    </div>
+                                </div>)}
+                            </Form.Item>
                             <Form.Item label='内容'>
                                 {getFieldDecorator('content', {
                                     initialValue:this.state.content,
@@ -141,7 +228,7 @@ class AddNews extends React.Component {
                                         },
                                     ],
                                 })(<div style={{backgroundColor:'#ddd'}}>
-                                   <Wysiwyg getContent={this.getContent}></Wysiwyg>
+                                   <Wysiwyg data={this.state.content} getContent={this.getContent}></Wysiwyg>
                                 </div>)}
                             </Form.Item>
                             <Form.Item label='备注'>
@@ -157,6 +244,7 @@ class AddNews extends React.Component {
                             </Form.Item>
                         </Form>
                     </div>
+                    <Base64UploadModel onRef={this.onRef} scale={2} onSave={this.onSave}></Base64UploadModel>
                 </Modal>
             </div>
         )

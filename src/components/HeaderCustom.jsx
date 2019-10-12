@@ -4,12 +4,12 @@
 import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import {observer,inject} from 'mobx-react';
-import avater from '../style/imgs/b1.jpg';
 import SiderCustom from './SiderCustom';
 import { Menu, Icon, Layout, Badge, Popover } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { PwaInstaller } from './widget';
 import { connectAlita } from 'redux-alita';
+import {getFilePath} from "../libs/tools";
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -19,9 +19,13 @@ class HeaderCustom extends Component {
     state = {
         user: '',
         visible: false,
+        avater:null
     };
     componentDidMount() {
-
+        let userInfo = this.props.appState.userInfo;
+        this.setState({
+            avater:getFilePath(userInfo.filePath),
+        })
     };
     screenFull = () => {
         if (screenfull.enabled) {
@@ -88,7 +92,7 @@ class HeaderCustom extends Component {
                             <Icon type="notification" />
                         </Badge>
                     </Menu.Item>
-                    <SubMenu title={<span className="avatar"><img src={avater} alt="头像" /><i className="on bottom b-white" /></span>}>
+                    <SubMenu title={<span className="avatar"><img src={this.state.avater} alt="头像" /><i className="on bottom b-white" /></span>}>
                         <MenuItemGroup title="用户中心">
                             <Menu.Item key="setting:1">你好 - {this.props.appState.userInfo.userName}</Menu.Item>
                             <Menu.Item key="setting:2" onClick={this.selfInfo}>个人信息</Menu.Item>

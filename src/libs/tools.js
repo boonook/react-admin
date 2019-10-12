@@ -1,3 +1,5 @@
+import config from '../config/index';
+const baseURL = process.env.NODE_ENV+''==='development'?config.baseUrl.dev:config.baseUrl.pro;
 /**
  * 从 x=1&y=1 形式的字符串中获取参数 {x:1,y:1}
  * @param url
@@ -273,4 +275,8 @@ export const makeFormData = params => {
         }
     });
     return formData;
+};
+
+export const getFilePath= path =>{
+   return baseURL+path;
 };

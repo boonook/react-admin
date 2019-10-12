@@ -2,22 +2,75 @@
  * Created by hao.cheng on 2017/4/23.
  */
 import React from 'react';
+import {Button} from 'antd'
 import './SelfInfo.less';
+import {base64Upload} from '../../api/uploadFile'
+import Base64UploadModel from "../plug/base64UploadModel/Base64UploadModel";
+import {observer,inject} from 'mobx-react';
+import { editUserlist } from '../../api/user'
+import {getFilePath} from '../../libs/tools'
 
+@inject('appState') @observer
 class SelfInfo extends React.Component {
     state = {
         size: 'default',
         loading: false,
         iconLoading: false,
+        filePath:'',
+        base64:null
     };
+
+    onUploadImage=()=>{
+        this.imgCorpUpload.myName();
+    };
+
+    onRef = (ref) => {//react新版本处理方式
+        this.imgCorpUpload = ref
+    };
+
+    onSave=(data,base64)=>{
+        debugger
+        this.setState({
+            filePath:data,
+            base64
+        })
+    };
+
+    onBase64Upload=()=>{
+        let params={
+            file:this.state.base64
+        };
+        base64Upload(params).then(res=>{
+          if(res && res.code+''==='200'){
+              let data =res.data||{};
+               let p = {
+                   id:this.props.appState.userInfo.id,
+                   filePath:data.filePath
+               };
+              editUserlist(p).then(res=>{
+                  debugger
+              })
+          }
+        })
+    };
+
+    componentDidMount() {
+        let userInfo = this.props.appState.userInfo;
+        this.setState({
+            filePath:getFilePath(userInfo.filePath),
+            userEmail:userInfo.userEmail,
+            userName:userInfo.userName
+        })
+    }
+
     render() {
         return (
             <div className="selfInfo_box">
                 <div className={'selfInfo_box_div_box'}>
                     <div className={'selfInfo_box_div'}>
                         {/*用户头像*/}
-                        <div className={'auther'}>
-
+                        <div className={'auther'} onClick={this.onUploadImage}>
+                            <img alt="头像" style={{ width:"100%" }} src={this.state.filePath} />
                         </div>
                         {/*用户姓名*/}
                         <div className={'selfInfo_username'}>
@@ -30,7 +83,7 @@ class SelfInfo extends React.Component {
                                        姓名
                                     </div>
                                     <div className={'userInfo_card_item_right'}>
-                                        大地瓜
+                                        {this.state.userName}
                                     </div>
                                 </div>
                                 <div  className={'userInfo_card_item'}>
@@ -38,7 +91,7 @@ class SelfInfo extends React.Component {
                                         邮箱
                                     </div>
                                     <div className={'userInfo_card_item_right'}>
-                                        boonook@163.com
+                                        {this.state.userEmail}
                                     </div>
                                 </div>
                                 <div  className={'userInfo_card_item'}>
@@ -89,9 +142,15 @@ class SelfInfo extends React.Component {
                                         web前端开发工程师
                                     </div>
                                 </div>
+                                <div  className={'userInfo_card_item'}>
+                                    <Button onClick={this.onBase64Upload}>上传头像</Button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <Base64UploadModel onRef={this.onRef} scale={1} onSave={this.onSave}></Base64UploadModel>
                 </div>
             </div>
         )
