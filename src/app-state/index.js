@@ -1,10 +1,11 @@
 import {observable,computed,action} from 'mobx';
-import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu} from './storage';
+import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu,getVm,setVm} from './storage';
 import routesConfig from '../routes/config';
 import {construct} from "@aximario/json-tree";
 class AppState {
     @observable count = 0;
     @observable name = 'Jokcy';
+    @observable vm = getVm()||null;
     @observable userInfo =getUserInfo();
     @observable isLogin =getIsLogin();
     @observable token =getToken();
@@ -17,7 +18,6 @@ class AppState {
     }
     @action changeUserMenu(data){
         /*** 动态菜单 start***/
-        debugger
         let menuArrss=[];
         let userMenu = data;
         let spread = function (menus) {
@@ -78,11 +78,13 @@ class AppState {
     @action changeName(name){
         this.name =name
     }
-    @action login(data){
+    @action login(data,e){
         let info = data||{};
         this.userInfo =info.userInfo[0]||{};
         this.isLogin = true;
         this.token = info.token||"";
+        this.vm = e;
+        setVm(e);
         setIsLogin(true);
         setToken(info.token||"");
         setUserInfo(info.userInfo[0]||{})
@@ -96,6 +98,9 @@ class AppState {
         setToken("");
         setUserInfo(null);
         setUserMenu(null);
+        localStorage.removeItem('user');
+        this.vm.props.history.push('/login');
+        setVm(null);
     }
 }
 

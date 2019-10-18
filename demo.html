@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/2.1.0/joint.css" />
+
+    <!-- dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/2.1.0/joint.js"></script>
+    <style>
+
+        .html-element {
+            position: absolute;
+            pointer-events: auto;
+        }
+
+        .html-element .valueSpan {
+            padding-left:25px
+        }
+
+        .right-side {
+            pointer-events: auto;
+            float:right
+        }
+
+
+        .left-side {
+            pointer-events: auto;
+            float:right
+        }
+        .html2-margin {
+            margin-left:120px;
+        }
+
+        .card-header {
+            margin-bottom: 0;
+            background-color: rgba(0,0,0,.03);
+            border-bottom: 1px solid rgba(0,0,0,.125);
+        }
+
+        .card-header h4:before {
+            height: 100%;
+            transform: scale(0.75);
+            width: 5px;
+            margin-top: -3px;
+        }
+
+        .card-header h4:before {
+            content: '';
+            width: 4px;
+            float: left;
+            height: 25px!important;
+            background-color: #ff8200;
+            margin-right: 10px;
+            border-radius: 8px;
+        }
+
+        .card-header a:before {
+            height: 100%;
+            transform: scale(0.75);
+            width: 5px;
+        }
+
+        .card-header a:before {
+            content: '';
+            width: 4px;
+            float: left;
+            height: 20px!important;
+            background-color: #ff8200;
+            margin-right: 8px;
+            border-radius: 8px;
+        }
+
+        .colorBlue {
+            width:10px;
+            height:10px;
+            background-color:#009ACD
+        }
+
+        .colorBlue {
+            width:10px;
+            height:10px;
+            background-color:#009ACD
+        }
+
+        .colorBlue {
+            width:10px;
+            height:10px;
+            background-color:#009ACD
+        }
+
+        .colorOrange {
+            width:10px;
+            height:10px;
+            background-color:#FB9900
+        }
+
+        .colorGrey {
+            width:10px;
+            height:10px;
+            background-color:#F2F2F2
+        }
+
+        .finishColor:before{
+            content: '';
+            width: 12px;
+            height: 12px!important;
+            background-color: #009ACD;
+            margin-right: 20px;
+            padding-right: 16px;
+        }
+
+
+        .finishColor {
+            float:right;
+            margin-top:40px;
+            padding-right:30px;
+        }
+
+
+        .notFinishColor:before{
+            content: '';
+            width: 12px;
+            height: 12px!important;
+            background-color: #FB9900;
+            margin-right: 20px;
+            padding-right: 16px;
+        }
+
+        .notFinishColor {
+            float:right;
+            margin-top:40px;
+            padding-right:30px;
+        }
+
+        .notGenerate:before{
+            content: '';
+            width: 12px;
+            height: 12px!important;
+            background-color: #F2F2F2;
+            margin-right: 20px;
+            padding-right: 16px;
+        }
+
+        .notGenerate {
+            float:right;
+            margin-top:40px;
+            padding-right:30px;
+        }
+
+        .arrowImg img {
+            float:right
+        }
+
+        .html-element .labelSpan {
+            color: #666;
+            display: inline-block;
+            width: 42%;
+        }
+
+        .html-element .valueSpan {
+            color: #212529;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container" style="width: 100%; max-width: 90%;">
+        <div style="height:100px">
+            <p class="notGenerate">未開啟</p>
+            <p class="notFinishColor">未完成</p>
+            <p class="finishColor">已完成</p>
+
+        </div>
+        <div class="card card-outline-default">
+            <div class="card-header">
+                <h4 class="card-title" tabindex="-1">
+                    賠案號碼：123789123978
+                </h4>
+            </div>
+            <div class="card-block collapse show">
+                <div id="paper" class="paper"  onclick="ccc()"></div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<!-- code -->
+<script type="text/javascript">
+
+    var graph = new joint.dia.Graph();
+
+    //定义连线
+    function link(source, target, label){
+        var cell = new joint.shapes.standard.Link({
+            source: { id: source.id },
+            target: { id: target.id },
+            labels: [{ position: 0.5, attrs: { text: { text: label || '', 'font-weight': 'bold','font-size': '12px' } } }],
+            router: { name: 'manhattan' },//设置连线弯曲样式 manhattan直角
+            attrs: {
+                '.marker-target': {
+                    fill: '#333333',//箭头颜色
+                    d: 'M 10 0 L 0 5 L 10 10 z'//箭头样式
+                },
+                line: {
+                    stroke: '#333333', // SVG attribute and value
+                    'stroke-width': 0.5//连线粗细
+                }
+            }
+        });
+        graph.addCell(cell);
+        return cell;
+    }
+
+    var ElementView = joint.dia.ElementView.extend({
+        pointerdown: function () {
+            this._click = true;
+            joint.dia.ElementView.prototype.pointerdown.apply(this, arguments);
+        },
+        pointermove: function(evt, x, y) {
+            this._click = false;
+        },
+        pointerup: function (evt, x, y) {
+            this._click = true;
+            if (this._click) {
+                this.notify('cell:click', evt, x, y);
+            } else {
+                joint.dia.ElementView.prototype.pointerup.apply(this, arguments);
+            }
+        }
+    });
+
+    var LinkView = joint.dia.LinkView.extend({
+        addVertex: function(evt, x, y) {},
+        removeVertex: function(endType) {},
+        pointerdown:function(evt, x, y) {}
+    });
+
+    //定义画布
+    var paperWidth = $('#paper').width();
+    var paper = new joint.dia.Paper({
+        el: $('#paper'),
+        width: paperWidth-15,
+        height: 1000,
+        gridSize: 1,
+        model: graph,
+        elementView: ElementView,
+        linkView:LinkView
+    });
+    var shapesSize = paperWidth/12;
+    //定義框的形狀
+    var state = function(x, y, shape, background, text){
+        var cell;
+        var textColor;
+        if(background=="#009ACD"||background=="#FB9900"||background=="#FB9900" || background=="#EE5C42") {
+            textColor = "white";
+            strokeWidth = "0"
+        }else {
+            textColor = "black";
+            strokeWidth = "1"
+        }
+
+        if(shape==="rect"){
+            cell = new joint.shapes.standard.Rectangle();
+            cell.resize(shapesSize, 40);
+            cell.position(x, y);
+            cell.attr('label/text', text);
+            cell.attr('label/font-size', '14px');
+            cell.attr('label/fill', textColor);
+            cell.attr('body/refPoints', '0,5 10,0 20,5 10,10');
+            cell.attr('body/fill', background);
+            cell.attr('body/strokeWidth', strokeWidth);
+            cell.attr('body/stroke', '#999999');
+            cell.attr('body/rx', '5px');
+            cell.attr('body/ry', '5px');
+
+        }  else if(shape==="rect"){
+            cell = new joint.shapes.basic.Rect({
+                position: { x: x, y: y },//坐标
+                size: { width: shapesSize, height: 40 },//宽高
+                attrs: {
+                    rect: {
+                        fill: background,
+                        stroke: '#999999',//边框颜色
+                        'stroke-width': 1 ,//边框大小
+                        rx:'5px',
+                        ry: '5px'
+                    },
+                    text: { text: text,fill:textColor}, //显示文字
+                }
+            });
+        } else if(shape==="ellipse"){
+            cell = new joint.shapes.basic.Rect({
+                position: { x: x, y: y },//坐标
+                size: { width: shapesSize, height: 40 },//宽高
+                attrs: {
+                    rect: {
+                        fill: background,
+                        stroke: '#999999',//边框颜色
+                        'stroke-width': strokeWidth,//边框大小
+                        rx:'28px',
+                        ry: '28px'
+                    },
+                    text: { text: text,fill:textColor } //显示文字
+                }
+            });
+        } else if(shape==="polygon") {
+            cell = new joint.shapes.standard.Polygon();
+            cell.resize(shapesSize, 40);
+            cell.position(x, y);
+            cell.attr('label/text', text);
+            cell.attr('label/font-size', '12px');
+            cell.attr('label/fill', textColor);
+
+            cell.attr('body/refPoints', '0,5 10,0 20,5 10,10');
+            cell.attr('body/fill', background);
+            cell.attr('body/strokeWidth', '1');
+        } else if(shape==="circle") {
+            var cell = new joint.shapes.standard.Circle();
+            cell.resize(20, 20);
+            cell.position(x, y);
+            cell.attr('root/title', 'joint.shapes.standard.Circle');
+            cell.attr('label/text', text);
+            cell.attr('label/fill', 'white');
+            cell.attr('body/fill', background);
+            cell.attr('body/strokeWidth', '0');
+            cell.attr('label/fill', textColor);
+            cell.attr('label/font-size', '12px');
+        }
+        graph.addCell(cell);
+        return cell;
+    };
+
+    //创建元素
+    //定义形状
+    var setX = 20;     //初始的x軸位置
+    var setY = 20;    //初始的y軸位置
+    var addSetX = paperWidth/8;
+    var addSetY = 80;
+
+    //leave 1
+    //var start = state(setX,setY,"ellipse","#009ACD", "开始");
+    var last = state(setX + addSetX*7,setY,"ellipse","#F2F2F2","整案結案");
+    //leave 2
+    setY = setY-addSetY
+    var state0 = state(setX,setY+addSetY,"ellipse","#009ACD", "立案");
+
+    //leave 3
+    var state4 = state(setX,setY+addSetY*2,"rect","#009ACD","分案確認");
+    link(state0,state4,"");
+
+    //leave 4
+    setY = setY+shapesSize/2;
+    var state5 = state(setX + addSetX*1,setY+addSetY*3,"rect","#009ACD","竊盜查勘");
+    link(state4,state5,"").vertices([
+        new g.Point(setX+shapesSize/2, setY+addSetY*3+20),
+    ]);
+
+    //state(setX + addSetX*1+83,setY+addSetY*3-10,"circle","#289DD8", "15");
+
+    var state6 = state(setX + addSetX*2,setY+addSetY*3,"rect","#009ACD","初次預估");
+    link(state5,state6,"")
+    var state7 = state(setX + addSetX*3,setY+addSetY*3,"rect","#FB9900","預估調整");
+    state(setX + addSetX*3+shapesSize-shapesSize/8,setY+addSetY*3-10,"circle","#EE5C42", "15");
+
+    link(state6,state7,"")
+    var state8 = state(setX + addSetX*4,setY+addSetY*3,"rect","#FB9900","最終理算");
+    link(state7,state8,"")
+    var state9 = state(setX + addSetX*5,setY+addSetY*3,"rect","#F2F2F2","賠款決賠");
+    link(state8,state9,"")
+    var state10 = state(setX + addSetX*6,setY+addSetY*3,"rect","#F2F2F2","錯更簽核");
+    link(state10,state9,"")
+    link(state10,state8,"").vertices([
+        new g.Point(setX + addSetX*6+shapesSize/2, setY+addSetY*3-20),
+        new g.Point(setX + addSetX*4+shapesSize/2, setY+addSetY*3-20),
+    ]);
+
+    //leave 5
+    var state31 = state(setX + addSetX,setY+addSetY*4,"rect","#009ACD","查勘簽核");
+    link(state5,state31);
+
+    var state11 = state(setX + addSetX*3,setY+addSetY*4,"rect","#F2F2F2","預估簽核");
+    link(state7,state11,"");
+    var state12 = state(setX + addSetX*4,setY+addSetY*4,"rect","#F2F2F2","免賠簽核");
+
+    link(state8,state12,"");
+    var state13 = state(setX + addSetX*5,setY+addSetY*4,"rect","#F2F2F2","決賠簽核");
+    link(state9,state13,"");
+    var state14 = state(setX + addSetX*6,setY+addSetY*4,"rect","#F2F2F2","錯誤結次更正");
+    link(state13,state14,"");
+    link(state14,state10,"");
+    //leave 6
+    var state15 = state(setX + addSetX,setY+addSetY*5,"rect","#FB9900","損失關閉");
+    link(state4,state15,"").vertices([
+        new g.Point(setX+shapesSize/2, setY+addSetY*5+20),
+    ]);
+
+    var state16 = state(setX + addSetX*2,setY+addSetY*5,"rect","#F2F2F2","損失關閉簽核");
+    link(state15,state16,"");
+    var state17 = state(setX + addSetX*6,setY+addSetY*5,"rect","#F2F2F2","結案");
+    link(state16,state17,"");
+    link(state12,state17,"").vertices([
+        new g.Point(setX+addSetX*4+shapesSize/2, setY+addSetY*5+20),
+    ]);
+    link(state13,state17,"").vertices([
+        new g.Point(setX+addSetX*5+shapesSize/2, setY+addSetY*5+20),
+    ]);
+    link(state17,last,"").vertices([
+        new g.Point(setX+addSetX*7+shapesSize/2, setY+addSetY*5+20),
+    ]);
+
+    //leave 8
+    var state18 = state(setX + addSetX*1,setY+addSetY*7,"rect","#009ACD","人傷查勘");
+    link(state4,state18,"").vertices([
+        new g.Point(setX+shapesSize/2, setY+addSetY*7+20),
+    ]);
+
+    //leave 8
+    var state19 = state(setX + addSetX*2,setY+addSetY*7,"rect","#009ACD","初次預估");
+    link(state18,state19,"");
+    var state20 = state(setX + addSetX*3,setY+addSetY*7,"rect","#FB9900","預估調整");
+    link(state19,state20,"");
+    var state21 = state(setX + addSetX*4,setY+addSetY*7,"rect","#F2F2F2","最終理算");
+    link(state20,state21,"");
+    var state22 = state(setX + addSetX*5,setY+addSetY*7,"rect","#F2F2F2","賠款決賠");
+    link(state21,state22,"");
+    var state23 = state(setX + addSetX*6,setY+addSetY*7,"rect","#F2F2F2","錯更簽核");
+    link(state23,state22,"");
+    link(state23,state21,"").vertices([
+        new g.Point(setX+addSetX*6+shapesSize/2, setY+addSetY*7-20),
+        new g.Point(setX+addSetX*4+shapesSize/2, setY+addSetY*7-20)
+    ]);
+
+    //leave 8
+    var state24 = state(setX + addSetX*3,setY+addSetY*8,"rect","#F2F2F2","預估簽核");
+    link(state20,state24,"");
+    var state25 = state(setX + addSetX*4,setY+addSetY*8,"rect","#F2F2F2","免賠簽核");
+    link(state21,state25,"");
+    var state26 = state(setX + addSetX*5,setY+addSetY*8,"rect","#F2F2F2","決賠簽核");
+    link(state22,state26,"");
+    var state27 = state(setX + addSetX*6,setY+addSetY*8,"rect","#F2F2F2","錯誤結次更正");
+    link(state26,state27,"");
+    link(state27,state23,"");
+
+    //leave 10
+    var state28 = state(setX + addSetX,setY+addSetY*9,"rect","#FB9900","損失關閉");
+    link(state4,state28,"").vertices([
+        new g.Point(setX+shapesSize/2, setY+addSetY*9+20),
+    ]);
+    var state29 = state(setX + addSetX*2,setY+addSetY*9,"rect","#F2F2F2","損失關閉簽核");
+    link(state28,state29);
+    var state30 = state(setX + addSetX*6,setY+addSetY*9,"rect","#F2F2F2","結案");
+    link(state29,state30);
+    link(state25,state30).vertices([
+        new g.Point(setX + addSetX*4+shapesSize/2, setY+addSetY*9+20),
+    ]);
+    link(state26,state30).vertices([
+        new g.Point(setX+addSetX*5+shapesSize/2, setY+addSetY*9+20),
+    ]);
+    link(state30,last).vertices([
+        new g.Point(setX+addSetX*7+shapesSize/2, setY+addSetY*9+20),
+    ]);
+
+
+    //彈出框propOver部分定義
+    joint.shapes.html = {};
+
+    joint.shapes.html.Element = joint.shapes.basic.Rect.extend({
+        defaults: joint.util.deepSupplement({
+            type: 'html.Element',
+            attrs: {
+                rect: { stroke: 'none', 'fill-opacity': 0 }
+            }
+        }, joint.shapes.basic.Rect.prototype.defaults)
+    });
+
+    var mapFlag = new Map();
+
+    joint.shapes.html.ElementView = joint.dia.ElementView.extend({
+        template: [
+            '<div class="html-element"><div id="flag" style="display:none;"></div>',
+            '<div class="popover fade right in" style="display: block;">',
+            '<div class="arrow" style="top: 50%;"></div><div class="popover-title card-header"><a href="#" class="title "></a> <span class="arrowImg"><img src="./image/ArrowRight_2.png" class="right-side"  style="margin-left:10px;" /> <img src="./image/ArrowLeft_2.png" class="left-side"/> </span></div>',
+            '<div class="popover-content" style="width:200px">',
+            '<div class="content">',
+            '</div>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join(''),
+
+        initialize: function() {
+            _.bindAll(this, 'updateBox');
+            joint.dia.ElementView.prototype.initialize.apply(this, arguments);
+            this.$box = $(_.template(this.template)());
+            this.model.on('remove', this.removeBox, this);
+            this.updateBox();
+        },
+        render: function() {
+            joint.dia.ElementView.prototype.render.apply(this, arguments);
+            this.paper.$el.prepend(this.$box);
+            this.updateBox();
+            return this;
+        },
+        updateBox: function() {
+            var bbox = this.model.getBBox();
+            var classBox = "html-element"+this.model.get("id");
+            $(".html-element").each(function(index,tep){
+                var className = String($(this).attr("class"));
+                if(className=="html-element") {
+                    $(this).addClass(classBox);
+                }
+            });
+            $("." + classBox + " .popover-title .title").text(this.model.get('title'));
+
+            var index = mapFlag.get("html-element"+this.model.get("id")) || 0 ;  //記錄第幾次
+
+            var valueSize =  this.model.get('JsonValue').length;
+            if(valueSize>1) {
+                if(index != 0) {
+                    $(".left-side").attr('src',"./image/Arrowleft_1.png");
+                    $(".left-side").css("cursor","pointer");
+                }else {
+                    $(".left-side").css("cursor","auto");
+                    $(".right-side").css("cursor","pointer");
+                }
+                if(index != valueSize-1) {
+                    $(".right-side").attr('src',"./image/ArrowRight_1.png");
+                    $(".right-side").css("cursor","pointer");
+                } else {
+                    $(".left-side").css("cursor","pointer");
+                    $(".right-side").css("cursor","auto");
+                }
+                $("." + classBox + " .popover-title .title").text(this.model.get('title')+"-00"+(index+1));
+
+            }
+
+            var JsonValue = this.model.get('JsonValue')[index];
+
+            for(var item in JsonValue){
+                $(".content").append('<span class="labelSpan">'+String(JsonValue[item].name)+'</span>');
+                $(".content").append("<span class='valueSpan'>"+JsonValue[item].value+"</span></br>");
+            }
+
+
+            $("." + classBox).on("click",(e)=>{
+                e.stopPropagation()
+            });
+
+            if(this.model.get('title')=="最終理算"){
+                $('.right-side').on('click', (e)=>{
+                    e.stopPropagation();
+                    index++;
+                    if(index > valueSize-1 || index < 0) {
+                        index--;
+                        return;
+                    }
+                    mapFlag.set("html-element"+this.model.get("id"),index);
+                    JsonValue = this.model.get('JsonValue')[index];
+                    $("." + classBox + " .labelSpan").each(function(index,tep){
+                        $(this).text(JsonValue[index].name);
+                    });
+
+                    $("." + classBox + " .valueSpan").each(function(index,tep){
+                        $(this).text(JsonValue[index].value);
+                    });
+                    $("." + classBox + " .popover-title .title").text(this.model.get('title')+"-00"+(index+1));
+
+
+                    $(".right-side").attr('src',"./image/ArrowRight_2.png");
+                    $(".left-side").attr('src',"./image/Arrowleft_2.png");
+                    if(valueSize > 1) {
+                        if(index != 0) {
+                            $(".left-side").attr('src',"./image/Arrowleft_1.png");
+                            $(".left-side").css("cursor","pointer");
+                        }else {
+                            $(".left-side").css("cursor","auto");
+                            $(".right-side").css("cursor","pointer");
+                        }
+                        if(index != valueSize-1) {
+                            $(".right-side").attr('src',"./image/ArrowRight_1.png");
+                            $(".right-side").css("cursor","pointer");
+                        } else {
+                            $(".left-side").css("cursor","pointer");
+                            $(".right-side").css("cursor","auto");
+                        }
+                    }
+                });
+
+                $('.left-side').on('click', (e)=>{
+                    e.stopPropagation();
+                    index--;
+                    if(index > valueSize-1 || index < 0) {
+                        index++;
+                        return;
+                    }
+                    mapFlag.set("html-element"+this.model.get("id"),index);
+                    JsonValue = this.model.get('JsonValue')[index];
+                    $("." + classBox + " .labelSpan").each(function(index,tep){
+                        $(this).text(JsonValue[index].name);
+                    });
+
+                    $("." + classBox + " .valueSpan").each(function(index,tep){
+                        $(this).text(JsonValue[index].value);
+                    });
+                    $("." + classBox + " .popover-title .title").text(this.model.get('title')+"-00"+(index+1));
+
+                    $(".right-side").attr('src',"./image/ArrowRight_2.png");
+                    $(".left-side").attr('src',"./image/Arrowleft_2.png");
+                    if(valueSize>1) {
+                        if(index != 0) {
+                            $(".left-side").attr('src',"./image/Arrowleft_1.png");
+                            $(".left-side").css("cursor","pointer");
+                        }else {
+                            $(".left-side").css("cursor","auto");
+                            $(".right-side").css("cursor","pointer");
+                        }
+                        if(index != valueSize-1) {
+                            $(".right-side").attr('src',"./image/ArrowRight_1.png");
+                            $(".right-side").css("cursor","pointer");
+                        } else {
+                            $(".left-side").css("cursor","pointer");
+                            $(".right-side").css("cursor","auto");
+                        }
+                    }
+                });
+            }
+
+            this.$box.css({
+                width: bbox.width,
+                height: bbox.height,
+                left: bbox.x,
+                top: bbox.y,
+            });
+        },
+        removeBox: function(evt) {
+            this.$box.remove();
+        },
+
+        changeBox: function(evt) {
+            this.$box.remove();
+        },
+
+    });
+
+    //彈出部分定義
+    joint.shapes.html2 = {};
+
+    joint.shapes.html2.Element = joint.shapes.basic.Rect.extend({
+        defaults: joint.util.deepSupplement({
+            type: 'html2.Element',
+            attrs: {
+                rect: { stroke: 'none', 'fill-opacity': 0 }
+            }
+        }, joint.shapes.basic.Rect.prototype.defaults)
+    });
+
+    joint.shapes.html2.ElementView = joint.dia.ElementView.extend({
+        template: [
+            '<div class="container html2-margin">',
+            '<div class="card card-outline-default" style="margin-top: 200px;">',
+            '<div class="card-header" style="padding:5px;"><span><h4 class="card-title" tabindex="-1">賠案號碼：123789123978</h4></span></div>',
+            '<div class="card-block collapse show">',
+            '<div style="height:250px"></div>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join(''),
+
+        initialize: function() {
+            _.bindAll(this, 'updateBox');
+            joint.dia.ElementView.prototype.initialize.apply(this, arguments);
+            this.$box = $(_.template(this.template)());
+
+            this.updateBox();
+        },
+        render: function() {
+            joint.dia.ElementView.prototype.render.apply(this, arguments);
+            this.paper.$el.prepend(this.$box);
+            this.updateBox();
+            return this;
+        },
+        updateBox: function() {
+            let width = paperWidth*0.8 + "px";
+            $(".html2-margin .card-outline-default").css('width',width);
+            let maginleft = paperWidth/12+20+"px"
+            $(".html2-margin").css('margin-left',maginleft);
+            var bbox = this.model.getBBox();
+            this.model.get("title");
+            this.$box.find(".card-header h4").text(this.model.get("title"));
+            this.$box.find(".card-outline-default").css("margin-top",this.model.get("top"));
+            this.$box.css({
+                width: bbox.width,
+                height: bbox.height,
+                left: bbox.x,
+                top: bbox.y,
+            });
+        },
+        removeBox: function(evt) {
+            this.$box.remove();
+        }
+    });
+
+    var html2 = new joint.shapes.html2.Element({
+        title:"本車財損：PCE-0234",
+        top:"135px"
+    });
+
+    var html3 = new joint.shapes.html2.Element({
+        title:"人傷查勘：江志軍",
+        top:"455px"
+    });
+
+    graph.addCell(html2);
+    graph.addCell(html3);
+
+
+    //给所有元素添加点击事件
+    var map = new Map();
+    paper.on('cell:click', function (e) {
+        let offsetX = $("#"+e.id).offset().left;
+        let offsetY = $("#"+e.id).offset().top;
+
+        if($("#"+e.id+" title").html()=="joint.shapes.standard.Circle") {
+            return;
+        }
+
+        var arr = $("#"+e.id+" tspan");
+        var tmp="";
+        $.each(arr, function(k,v){
+            tmp+=$(v).html();
+        });
+
+        map.forEach(function (item, key, mapObj) {
+            item.remove();
+        });
+        map.clear();
+
+        var el1;
+        if(tmp=="已完成" || tmp=="未完成" || tmp=="未生成" || tmp=="整案結案" || tmp=="代服務簽核?" || tmp=="預估調整?" || tmp=="預估簽核?" || tmp=="免賠簽核?" || tmp=="全部免賠?" || tmp=="賠款決賠簽核?" || tmp=="部分賠付?") {
+            return;
+        }
+        if(tmp=="立案" || tmp=="分案確認" || tmp=="初次預估" || tmp == "車損查勘") {
+            el1 = new joint.shapes.html.Element({
+                id: e.id,
+                position: { x: offsetX+5, y: offsetY-210 },
+                size: { width: 170, height: 120 },
+                JsonValue:[[{name: "開始時間" , value:'107/07/01'},{name: '結束時間' , value:'107/07/01'},{name:'是否逾期' , value: '是'},{name: '處理人員' , value: '張三'}]],
+                title:tmp
+            });
+        } else if(tmp=="最終理算") {
+            el1 = new joint.shapes.html.Element({
+                id: e.id,
+                position: { x: offsetX+5, y: offsetY-210 },
+                size: { width: 170, height: 120 },
+                JsonValue:[[{name: "開始時間" , value:'107/07/01'},{name: '結束時間' , value:''},{name:'是否逾期' , value: '是'},{name: '處理人員' , value: '張三'},{name: '和解時間' , value: '107/07/04'},{name: '資料補全日' , value: '107/07/04'}],[{name: '開始時間' , value:'107/07/03'},{name: '結束時間' , value:''},{name:'是否逾期' , value: '否'},{name: '處理人員' , value: '張三'},{name: '和解時間' , value: '107/07/04'},{name: '資料補全日' , value: '107/07/04'}]],
+                title:tmp
+            });
+        } else {
+            el1 = new joint.shapes.html.Element({
+                id: e.id,
+                position: { x: offsetX+5, y: offsetY-210 },
+                size: { width: 170, height: 120 },
+                JsonValue:[[{name: '開始時間' , value:'107/07/01'},{name: '結束時間' , value:''},{name:'是否逾期' , value: '是'},{name: '處理人員' , value: '張三'}]],
+                title:tmp
+            });
+        }
+        graph.addCell(el1);
+        map.set(e.id,el1);
+    });
+
+    function ccc() {
+        map.forEach(function (item, key, mapObj) {
+            item.remove();
+        });
+        map.clear();
+    }
+
+</script>
+
+
+
+
+
+</html>

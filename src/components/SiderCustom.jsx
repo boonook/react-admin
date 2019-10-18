@@ -63,6 +63,9 @@ class SiderCustom extends Component {
     };
     render() {
         let userMenu = this.props.appState.userMenu?JSON.parse(this.props.appState.userMenu):{menus:[],others:[]};
+        // if(!Array.isArray(userMenu)){
+        //     userMenu=[{menus:[],others:[]}];
+        // }
         userMenu.menus = [...userMenu.menus,...userMenu.others];
         const { selectedKey, openKey, firstHide, collapsed } = this.state;
         return (

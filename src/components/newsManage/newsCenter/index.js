@@ -139,7 +139,7 @@ class newsCenter extends React.Component {
 
     onView=(data)=>{
         getNewsDetail(data.id).then(res=>{
-            debugger
+
         })
     };
 

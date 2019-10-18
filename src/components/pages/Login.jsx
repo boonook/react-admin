@@ -10,6 +10,7 @@ import {connectAlita} from "redux-alita";
 
 @inject('appState') @observer
 class Login extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -31,15 +32,17 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+
                 let params={
                     userName:this.state.userName,
                     userPwd:this.state.userPwd
                 };
+
                 login(params).then(res=>{
                     if(res.code+''==='200'){
                         if(res.rel){
                             let data = res.data||{};
-                            this.props.appState.login(data);
+                            this.props.appState.login(data,this);
                             ////获取用户的权限菜单树
                             getMenu().then(res=>{
                                 if(res && res.code+''==='200'){
@@ -59,6 +62,7 @@ class Login extends React.Component {
                         }
                     }
                 })
+
             }
         });
     };

@@ -29,7 +29,6 @@ class SelfInfo extends React.Component {
     };
 
     onSave=(data,base64)=>{
-        debugger
         this.setState({
             filePath:data,
             base64
@@ -48,7 +47,7 @@ class SelfInfo extends React.Component {
                    filePath:data.filePath
                };
               editUserlist(p).then(res=>{
-                  debugger
+
               })
           }
         })

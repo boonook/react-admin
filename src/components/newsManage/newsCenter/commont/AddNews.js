@@ -62,7 +62,6 @@ class AddNews extends React.Component {
                    file:[{name:data.filePath}],
                },()=>{
                    console.log(this)
-                   debugger
                })
             }
         })
@@ -142,7 +141,6 @@ class AddNews extends React.Component {
     };
 
     onSave=(data,base64)=>{
-        debugger
         this.setState({
             filePath:data,
             base64

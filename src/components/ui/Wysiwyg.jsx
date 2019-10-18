@@ -3,8 +3,24 @@
  */
 import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
+import { ContentState,convertFromHTML } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftToHtml from 'draftjs-to-html';
+// import htmlToDraft from 'html-to-draftjs';
+
+const contentBlocks = convertFromHTML('<p>Lorem ipsum ' +
+  'dolor sit amet, consectetur adipiscing elit. Mauris tortor felis, volutpat sit amet ' +
+  'maximus nec, tempus auctor diam. Nunc odio elit,  ' +
+  'commodo quis dolor in, sagittis scelerisque nibh. ' +
+  'Suspendisse consequat, sapien sit amet pulvinar  ' +
+  'tristique, augue ante dapibus nulla, eget gravida ' +
+  'turpis est sit amet nulla. Vestibulum lacinia mollis  ' +
+  'accumsan. Vivamus porta cursus libero vitae mattis. ' +
+  'In gravida bibendum orci, id faucibus felis molestie ac.  ' +
+  'Etiam vel elit cursus, scelerisque dui quis, auctor risus.</p>');
+
+  const sampleEditorContent = ContentState.createFromBlockArray(contentBlocks);
+
 class Wysiwyg extends Component {
     state = {
         editorContent: '',
@@ -34,6 +50,8 @@ class Wysiwyg extends Component {
     onEditorStateChange = (editorState) => {
         this.setState({
             editorState,
+        },()=>{
+            console.log('000000---------',this.state.editorState)
         });
     };
 
@@ -63,6 +81,7 @@ class Wysiwyg extends Component {
         return (
             <div className="gutter-example button-demo">
                 <Editor
+                    defaultEditorState={sampleEditorContent}
                     editorState={editorState}
                     toolbarClassName="home-toolbar"
                     wrapperClassName="home-wrapper"
@@ -100,7 +119,10 @@ class Wysiwyg extends Component {
 
                 <style>{`
                     .home-editor {
-                        min-height: 300px;
+                        height: 460px;
+                        padding:0 10px 0 10px;
+                        line-height: normal;
+                        overflow-y:screen;
                     }
                 `}</style>
                 {/*<Card title="同步转换HTML" bordered={false}>*/}

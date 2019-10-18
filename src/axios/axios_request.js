@@ -92,8 +92,15 @@ class HttpRequest {
         options = Object.assign(this.getInsideConfig(), options);
         this.interceptors(instance, options.url, withToken)
         return instance(options).then((res) => {
-            if(showMsg && showMsg){
-                message.info(res.message,2)
+            if(res && res.code+''==='200'){
+                if(showMsg && showMsg){
+                    message.info(res.message,2)
+                }
+            }else{
+                message.error(res.message,2);
+                if(res && res.code+''==='202'){
+                    appState.loginOut()
+                }
             }
             return res
             }).catch(

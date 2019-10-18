@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import screenfull from 'screenfull';
 import {observer,inject} from 'mobx-react';
 import SiderCustom from './SiderCustom';
-import { Menu, Icon, Layout, Badge, Popover } from 'antd';
+import { Menu, Icon, Layout, Badge, Popover,notification } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { PwaInstaller } from './widget';
 import { connectAlita } from 'redux-alita';
@@ -26,6 +26,37 @@ class HeaderCustom extends Component {
         this.setState({
             avater:getFilePath(userInfo.filePath),
         })
+        if (window.WebSocket)
+        {
+            console.log("支持");
+        }else
+        {
+            console.log("不支持");
+        }
+        let ws = new WebSocket("ws://localhost:9000");
+        ws.onopen = function() {
+          console.log("client：打开连接");
+          let msg = {type:'test',id:userInfo.id}
+          ws.send(JSON.stringify(msg));
+        //   ws.send("client：hello，服务端");
+        };
+        ws.onmessage = function(e) {
+          console.log("client：接收到服务端的消息 " + e.data);
+          notification.open({
+            message: '消息通知',
+            description:
+            e.data,
+            onClick: () => {
+              console.log('Notification Clicked!');
+            },
+          });
+        //   setTimeout(() => {
+        //     ws.close();
+        //   }, 5000);
+        };
+        // ws.onclose = function(params) {
+        //   console.log("client：关闭连接");
+        // };
     };
     screenFull = () => {
         if (screenfull.enabled) {
@@ -39,9 +70,6 @@ class HeaderCustom extends Component {
     };
     logout = () => {
         this.props.appState.loginOut();
-        this.props.history.push('/login')
-        localStorage.removeItem('user');
-        this.props.history.push('/login')
     };
     popoverHide = () => {
         this.setState({
@@ -92,9 +120,9 @@ class HeaderCustom extends Component {
                             <Icon type="notification" />
                         </Badge>
                     </Menu.Item>
-                    <SubMenu title={<span className="avatar"><img src={this.state.avater} alt="头像" /><i className="on bottom b-white" /></span>}>
+                    <SubMenu title={<span className="avatar"><img src={this.state.avater||''} alt="头像" /><i className="on bottom b-white" /></span>}>
                         <MenuItemGroup title="用户中心">
-                            <Menu.Item key="setting:1">你好 - {this.props.appState.userInfo.userName}</Menu.Item>
+                            <Menu.Item key="setting:1">你好 - {this.props.appState.userInfo?this.props.appState.userInfo.userName?this.props.appState.userInfo.userName:'':''}</Menu.Item>
                             <Menu.Item key="setting:2" onClick={this.selfInfo}>个人信息</Menu.Item>
                             <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
                         </MenuItemGroup>

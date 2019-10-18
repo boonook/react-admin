@@ -61,7 +61,7 @@ class AddFile extends React.Component {
             files:this.state.files
         };
         uploadMore(params).then(res=>{
-            debugger
+
         })
     };
 

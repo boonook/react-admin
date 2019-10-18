@@ -112,7 +112,7 @@ class notice extends React.Component {
                                 </Popconfirm>
                                 <span style={{marginLeft:'5px',cursor:'pointer'}} onClick={()=>this.onEditor(record)}>编辑</span>
                                 <span style={{marginLeft:'5px',cursor:'pointer'}} onClick={()=>this.onView(record)}>查看</span>
-                                <span style={{marginLeft:'5px',cursor:'pointer'}} onClick={()=>this.onDownload(record)}>瞎子啊</span>
+                                <span style={{marginLeft:'5px',cursor:'pointer'}} onClick={()=>this.onDownload(record)}>下载</span>
                             </div>
                         </div>
                 }
