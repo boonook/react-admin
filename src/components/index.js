@@ -10,7 +10,8 @@ import onlineTest from './studyManage/onlineTest';
 import notice from './newsManage/notice';
 import newsCenter from './newsManage/newsCenter';
 import user from './seetingManage/user';
-import role from './seetingManage/role'
+import role from './seetingManage/role';
+import menu from './seetingManage/menu'
 import SelfInfo from './selfCenter/SelfInfo'
 import test from './test'
 
@@ -24,6 +25,7 @@ export default {
     newsCenter,
     user,
     role,
+    menu,
     test,
     SelfInfo
 }

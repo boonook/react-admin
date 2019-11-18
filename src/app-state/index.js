@@ -90,15 +90,15 @@ class AppState {
         setUserInfo(info.userInfo[0]||{})
     }
     @action loginOut(data){
-        this.userInfo ={};
-        this.isLogin = false;
-        this.token = "";
-        this.userMenu =null;
         setIsLogin(false);
         setToken("");
         setUserInfo(null);
         setUserMenu(null);
-        localStorage.removeItem('user');
+        this.userInfo ={};
+        this.isLogin = false;
+        this.token = "";
+        this.userMenu =null;
+        // localStorage.removeItem('user');
         this.vm.props.history.push('/login');
         setVm(null);
     }

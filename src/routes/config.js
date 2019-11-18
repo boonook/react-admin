@@ -25,7 +25,8 @@ export default {
             key: '/app/seetingManage', title: '系统管理', icon: 'scan',
             subs: [
                 { key: '/app/seetingManage/user', title: '用户管理', component: 'user'},
-                { key: '/app/seetingManage/role', title: '角色管理', component: 'role'}
+                { key: '/app/seetingManage/role', title: '角色管理', component: 'role'},
+                { key: '/app/seetingManage/menu', title: '菜单管理', component: 'menu'}
             ]
         },
         {
