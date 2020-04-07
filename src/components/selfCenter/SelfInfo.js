@@ -142,7 +142,7 @@ class SelfInfo extends React.Component {
                                     </div>
                                 </div>
                                 <div  className={'userInfo_card_item'}>
-                                    <Button onClick={this.onBase64Upload}>上传头像</Button>
+                                    <Button style={{width:'100%'}} onClick={this.onBase64Upload}>上传头像</Button>
                                 </div>
                             </div>
                         </div>
