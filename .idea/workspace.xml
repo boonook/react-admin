@@ -2,55 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f37b08ae-64c3-4e9e-b9d8-10c6c06cfa38" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/btnPromiss/AuthComponent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/pages/UnStatusMobx.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/history.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/SiderMenu.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/build/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/precache-manifest.953b073d2924bc6680a3eea655fbfae9.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/1.5d4f51ea.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/1.5d4f51ea.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.b8a1264e.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/css/main.b8a1264e.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/1.4a2810ce.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/1.4a2810ce.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.0a76690f.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.0a76690f.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app-state/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app-state/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app-state/storage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app-state/storage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/axios_request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/axios_request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderCustom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SiderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SiderCustom.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SiderMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SiderMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/animation/BasicAnimations.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/animation/BasicAnimations.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/animation/ExampleAnimations.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/animation/ExampleAnimations.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/Basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Basic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/RouterEnter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/RouterEnter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/ceshi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/ceshi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/count/partyCount/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/count/partyCount/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/count/studyCount/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/count/studyCount/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dashboard/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/newsManage/newsCenter/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/newsManage/newsCenter/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/newsManage/notice/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/newsManage/notice/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/NotFound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/NotFound.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/seetingManage/menu/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/seetingManage/menu/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/seetingManage/role/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/seetingManage/role/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/seetingManage/user/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/seetingManage/user/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/selfCenter/SelfInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/selfCenter/SelfInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/studyManage/onlineTest/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/studyManage/onlineTest/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/test/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/test/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +191,7 @@
       <workItem from="1591859119243" duration="4062000" />
       <workItem from="1591923593267" duration="33000" />
       <workItem from="1591926465981" duration="3211000" />
-      <workItem from="1592189829240" duration="11454000" />
+      <workItem from="1592189829240" duration="12410000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1568853429682</created>
@@ -337,6 +291,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1592205679317" />
+    <state x="492" y="310" key="EditFileWatcherDialog" timestamp="1592211492587">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="492" y="310" key="EditFileWatcherDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1592211492587" />
     <state x="541" y="280" width="598" height="490" key="find.popup" timestamp="1592209988187">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>

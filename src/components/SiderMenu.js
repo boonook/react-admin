@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import {  DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-
+import './SiderMenu.less'
 const renderMenuItem = item => ( // item.route 菜单单独跳转的路由
     <Menu.Item
         key={item.key}
