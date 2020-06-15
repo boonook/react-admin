@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-class studyCount extends React.Component {
+class AuthComponent extends React.Component {
     state = {
         size: 'default',
         loading: false,
@@ -11,11 +11,11 @@ class studyCount extends React.Component {
     };
     render() {
         return (
-            <div className="gutter-example button-demo">
+            <div className="gutter-example button-demo" key={'AuthComponent'}>
                 <p>学习统计</p>
             </div>
         )
     }
 }
 
-export default studyCount;
+export default AuthComponent;

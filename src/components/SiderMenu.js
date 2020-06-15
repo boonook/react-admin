@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import {  DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const renderMenuItem = item => ( // item.route 菜单单独跳转的路由
     <Menu.Item
@@ -60,7 +60,7 @@ export default ({ menus, ...props }) => {
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                     >
-                        {dragItems.map((item, index) => (
+                        { dragItems.map((item, index) => (
                             <Draggable
                                 key={item.key}
                                 draggableId={item.key}

@@ -24,7 +24,7 @@ class HeaderCustom extends Component {
     componentDidMount() {
         let userInfo = this.props.appState.userInfo;
         this.setState({
-            avater:getFilePath(userInfo.filePath),
+            avater:getFilePath(userInfo?userInfo.filePath:''),
         })
         if (window.WebSocket)
         {
@@ -36,7 +36,7 @@ class HeaderCustom extends Component {
         let ws = new WebSocket("ws://localhost:9000");
         ws.onopen = function() {
           console.log("client：打开连接");
-          let msg = {type:'test',id:userInfo.id}
+          let msg = {type:'test',id:userInfo?userInfo.id:''}
           ws.send(JSON.stringify(msg));
         //   ws.send("client：hello，服务端");
         };
@@ -66,7 +66,7 @@ class HeaderCustom extends Component {
     };
     menuClick = e => {
         console.log(e);
-        e.key === 'logout' && this.logout();
+        e.key === 'logout' &&  this.props.appState.loginOut();
     };
     logout = () => {
         this.props.appState.loginOut();

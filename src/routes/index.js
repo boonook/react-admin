@@ -8,6 +8,7 @@ import {observer,inject} from 'mobx-react';
 import AllComponents from '../components';
 import queryString from 'query-string';
 import routesConfig from './config';
+import Login from '../components/pages/Login'
 
 @inject('appState') @observer
 class CRouter extends Component {
@@ -63,8 +64,8 @@ class CRouter extends Component {
                         return r.component ? route(r) : r.subs.map(r => route(r));
                     })
                 )}
-
                 <Route render={() => <Redirect to="/404" />} />
+                <Route path="/login" exact component={Login}/>
             </Switch>
         );
     }

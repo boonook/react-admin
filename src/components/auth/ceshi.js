@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 class ceshi extends Component {
     render() {
         return (
-            <div>
+            <div key={'ceshi'}>
                 <h1>测试</h1>
             </div>
 

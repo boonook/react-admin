@@ -25,7 +25,7 @@ class partyCount extends React.Component {
 
     render() {
         return (
-            <div className="gutter-example button-demo">
+            <div className="gutter-example button-demo" key={'partyCount'}>
                 <p>党员统计</p>
                 <div id="myholder"></div>
             </div>

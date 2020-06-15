@@ -4,9 +4,11 @@
 import React from 'react';
 import { Form, Button,Input,Icon } from 'antd';
 import {observer,inject} from 'mobx-react';
+import {connectAlita} from "redux-alita";
 import { PwaInstaller } from '../widget';
 import {login,getMenu} from '../../api/auth'
-import {connectAlita} from "redux-alita";
+import AuthComponent from '../../components/btnPromiss/AuthComponent'
+import UnStatusMobx from '../../components/pages/UnStatusMobx'
 
 @inject('appState') @observer
 class Login extends React.Component {
@@ -79,10 +81,14 @@ class Login extends React.Component {
         })
     }
 
+    onCeshi=(e)=>{
+
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <div className="login" style={{backgroundColor:'#313653'}}>
+            <div className="login" style={{backgroundColor:'#313653'}} key={'login'}>
                 <div className="login-form" >
                     <div className="login-logo">
                         <span>登陆界面</span>
@@ -111,6 +117,11 @@ class Login extends React.Component {
                             <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}} onClick={(e)=>this.handleSubmits(e)}>
                                 登录
                             </Button>
+                            {/*控制按钮权限？主要传递两个参数一个是auth,另一个是title*/}
+                            <UnStatusMobx />
+                            <p style={{color:'red'}}> 以下为按钮权限操作</p>
+                            <AuthComponent auth={"user:add"} onBtnClick={(e)=>{this.onCeshi(e)}} title={'新增'}/>
+                            <AuthComponent auth={"menu:view"} onBtnClick={(e)=>{this.onCeshi(e)}} title={'查看菜单按钮'}/>
                         </Form.Item>
                     </Form>
                 </div>

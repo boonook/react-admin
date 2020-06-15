@@ -64,7 +64,7 @@ class SelfInfo extends React.Component {
 
     render() {
         return (
-            <div className="selfInfo_box">
+            <div className="selfInfo_box" key={'SelfInfo'}>
                 <div className={'selfInfo_box_div_box'}>
                     <div className={'selfInfo_box_div'}>
                         {/*用户头像*/}

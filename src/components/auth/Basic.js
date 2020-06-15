@@ -10,7 +10,7 @@ import beauty from '@/style/imgs/beauty.jpg';
 class Basic extends Component {
     render() {
         return (
-            <div>
+            <div key={'Basic'}>
                 <BreadcrumbCustom first="权限管理" second="基础演示" />
                 <AuthWidget
                     children={auth => (

@@ -74,7 +74,7 @@ class ExampleAnimations extends React.Component {
         const { dataSource } = this.state;
         const columns = this.columns;
         return (
-            <div className="gutter-example">
+            <div className="gutter-example" key={"exampleAnimations"}>
                 <BreadcrumbCustom first="动画" second="动画案例" />
                 <Row gutter={16}>
                     <Col className="gutter-row" md={24}>

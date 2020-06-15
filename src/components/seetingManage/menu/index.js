@@ -19,13 +19,13 @@ class menu extends React.Component {
     };
 
     onCheck=(data)=>{
-        debugger
+
     }
 
 
     render() {
         return (
-            <div>
+            <div key={'menu'}>
                 <p style={{backgroundColor:'orange',padding:'15px',color:'#fff'}}>菜单管理</p>
                 <div style={{textAlign:'right',marginBottom:'10px'}}>
                     <Button onClick={this.onAddUser} type="primary">新增</Button>

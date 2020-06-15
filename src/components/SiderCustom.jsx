@@ -66,6 +66,10 @@ class SiderCustom extends Component {
         // if(!Array.isArray(userMenu)){
         //     userMenu=[{menus:[],others:[]}];
         // }
+        if(userMenu+''==='null'){
+           this.props.history.replace('/login');
+           return false;
+        }
         userMenu.menus = [...userMenu.menus,...userMenu.others];
         const { selectedKey, openKey, firstHide, collapsed } = this.state;
         return (

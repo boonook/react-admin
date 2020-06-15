@@ -3,12 +3,6 @@ import Cookie from 'js-cookie';
 export const getToken = () => {
     return Cookie.get('token')
 };
-export const getVm = () => {
-    return Cookie.get('vm')
-}
-export const setVm = (vm) => {
-    Cookie.set('vm', vm)
-}
 
 export const setToken = (token) => {
     Cookie.set('token', token)

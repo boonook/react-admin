@@ -11,7 +11,7 @@ class test extends React.Component {
     };
     render() {
         return (
-            <div className="gutter-example button-demo">
+            <div className="gutter-example button-demo" key={'test'}>
                 <p>测试界面--------</p>
             </div>
         )

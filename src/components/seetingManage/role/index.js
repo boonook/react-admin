@@ -102,7 +102,7 @@ class role extends React.Component {
 
     render() {
         return (
-            <div className="gutter-example button-demo">
+            <div className="gutter-example button-demo" key={'role'}>
                 <p style={{backgroundColor:'orange',padding:'15px',color:'#fff'}}>角色管理</p>
                 <div style={{textAlign:'right',marginBottom:'10px'}}>
                     <Button onClick={this.onAddRole} type="primary">新增</Button>

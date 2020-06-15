@@ -150,13 +150,12 @@ class newsCenter extends React.Component {
     onEditor=(data)=>{
         this.child.myName('edit',data)
         // getNewsDetail(data.id).then(res=>{
-        //     debugger
         // })
     }
 
     render() {
         return (
-            <div className="gutter-example button-demo">
+            <div className="gutter-example button-demo" key={'newsCenter'}>
                 <p style={{backgroundColor:'orange',padding:'15px',color:'#fff'}}>新闻中心</p>
                 <div style={{textAlign:'right',marginBottom:'10px'}}>
                     <Button onClick={this.onAddNews} type="primary">新增</Button>

@@ -37,7 +37,7 @@ class BasicAnimations extends React.Component {
             'slideInLeft', 'slideInRight', 'slideInUp', 'slideOutDown', 'slideOutLeft', 'slideOutRight', 'slideOutUp'
         ];
         return (
-            <div className="gutter-example button-demo">
+            <div className="gutter-example button-demo" key={'basicAnimations'}>
                 <BreadcrumbCustom first="动画" second="基础动画" />
                 <Row className="mb-m">
                     <span className="mr-s">全部动画(单个动画请移动鼠标)</span>

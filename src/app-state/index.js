@@ -1,11 +1,11 @@
 import {observable,computed,action} from 'mobx';
-import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu,getVm,setVm} from './storage';
+import history from '../utils/history';
+import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu} from './storage';
 import routesConfig from '../routes/config';
 import {construct} from "@aximario/json-tree";
 class AppState {
     @observable count = 0;
     @observable name = 'Jokcy';
-    @observable vm = getVm()||null;
     @observable userInfo =getUserInfo();
     @observable isLogin =getIsLogin();
     @observable token =getToken();
@@ -83,13 +83,11 @@ class AppState {
         this.userInfo =info.userInfo[0]||{};
         this.isLogin = true;
         this.token = info.token||"";
-        this.vm = e;
-        setVm(e);
         setIsLogin(true);
         setToken(info.token||"");
         setUserInfo(info.userInfo[0]||{})
     }
-    @action loginOut(data){
+    @action loginOut(){
         setIsLogin(false);
         setToken("");
         setUserInfo(null);
@@ -99,8 +97,8 @@ class AppState {
         this.token = "";
         this.userMenu =null;
         // localStorage.removeItem('user');
-        this.vm.props.history.push('/login');
-        setVm(null);
+        debugger
+        history.replace('/login')
     }
 }
 
