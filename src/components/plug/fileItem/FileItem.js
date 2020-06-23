@@ -34,7 +34,7 @@ class FileItem extends React.Component {
         }else{
             let fileList = info.fileList;
             this.setState({
-                fileList:fileList
+                fileList:[fileList[fileList.length-1]]
             },()=>{
                 this.props.getFile(this.state.fileList);
             })

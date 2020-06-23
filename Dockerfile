@@ -1,4 +1,3 @@
 FROM nginx:latest
-COPY ./build /usr/share/nginx/html/
-COPY ./default.conf /etc/nginx/conf.d/
-EXPOSE 80
+MAINTAINER boonook@163.com
+COPY build/ /usr/share/nginx/html/    

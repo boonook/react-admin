@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f37b08ae-64c3-4e9e-b9d8-10c6c06cfa38" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/onlineTest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/studyManage/onlineTest/commont/UploadDaTiJi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/plug/fileItem/FileItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/plug/fileItem/FileItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/studyManage/onlineTest/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/studyManage/onlineTest/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +196,14 @@
       <workItem from="1591859119243" duration="4062000" />
       <workItem from="1591923593267" duration="33000" />
       <workItem from="1591926465981" duration="3211000" />
-      <workItem from="1592189829240" duration="12918000" />
+      <workItem from="1592189829240" duration="13117000" />
+      <workItem from="1592538328390" duration="69000" />
+      <workItem from="1592538478109" duration="1024000" />
+      <workItem from="1592788872948" duration="9014000" />
+      <workItem from="1592819467899" duration="321000" />
+      <workItem from="1592819876891" duration="553000" />
+      <workItem from="1592875307443" duration="63000" />
+      <workItem from="1592875402211" duration="243000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1568853429682</created>
@@ -297,9 +311,9 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="541" y="280" width="598" height="490" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1592209988187" />
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1592205504259">
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1592790328965">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1592205504259" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1592790328965" />
   </component>
 </project>
