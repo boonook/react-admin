@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { message } from 'antd';
 import config from '../config/index';
-import appState from '../app-state/index';
+import appState from '../store/index';
 /**
  * 请求
  */
