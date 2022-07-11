@@ -33,7 +33,7 @@ class HeaderCustom extends Component {
         {
             console.log("不支持");
         }
-        let ws = new WebSocket("ws://localhost:9000");
+        let ws = new WebSocket("ws://boonook.top:9000");
         ws.onopen = function() {
           console.log("client：打开连接");
           let msg = {type:'test',id:userInfo?userInfo.id:''}

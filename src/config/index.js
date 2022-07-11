@@ -1,8 +1,8 @@
-export const baseURL = 'http://localhost:3002';
+export const baseURL = 'http://boonook.top:3003';
 const config = {
     baseUrl: {
-        dev: 'http://localhost:3003',
-        pro: 'http://localhost:3003',
+        dev: 'http://boonook.top:3003',
+        pro: 'http://boonook.top:3003',
     }
 };
 export default config
