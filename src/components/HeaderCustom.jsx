@@ -24,7 +24,8 @@ class HeaderCustom extends Component {
     componentDidMount() {
         let userInfo = this.props.appState.userInfo;
         this.setState({
-            avater:getFilePath(userInfo?userInfo.filePath:''),
+            // avater:getFilePath(userInfo?userInfo.filePath:''),
+            avater:(userInfo?userInfo.filePath:''),
         })
         if (window.WebSocket)
         {

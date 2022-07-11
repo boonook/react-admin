@@ -56,7 +56,8 @@ class SelfInfo extends React.Component {
     componentDidMount() {
         let userInfo = this.props.appState.userInfo;
         this.setState({
-            filePath:getFilePath(userInfo.filePath),
+            // filePath:getFilePath(userInfo.filePath),
+            filePath:userInfo.filePath,
             userEmail:userInfo.userEmail,
             userName:userInfo.userName
         })

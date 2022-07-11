@@ -57,7 +57,7 @@ class AppState {
         for (let i = 0;i<menuArrs.length;i++) {
             for(let j =0;j<userMenu.length;j++){
                 if(menuArrs[i].key === userMenu[j].path){
-                    menuArrs[i].id = userMenu[j].Id||'';
+                    menuArrs[i].id = userMenu[j].id||'';
                     menuArrs[i].title = userMenu[j].menuName||'';
                     menuArrs[i].menuParentId = userMenu[j].menuParentId||'';
                     menus.push(menuArrs[i]);
@@ -71,6 +71,7 @@ class AppState {
             children: 'subs'
         });
         routesConfig.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
+        // debugger
         let menusBox = JSON.stringify(routesConfig);
         this.userMenu = menusBox;
         setUserMenu(routesConfig);
