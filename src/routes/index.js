@@ -20,7 +20,8 @@ class CRouter extends Component {
     };
     
     render() {
-        let userMenu = this.props.appState.userMenu?JSON.parse(this.props.appState.userMenu):[];
+        let userMenu = (this.props.appState.userMenu && this.props.appState.userMenu!='null')?JSON.parse(this.props.appState.userMenu):{};
+        debugger
         if(this.props.appState.isLogin==undefined || !this.props.appState.isLogin){
             history.replace('/login')
         }

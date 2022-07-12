@@ -1,6 +1,6 @@
 export default {
     menus: [ // 菜单相关路由
-        { key: '/app/dashboard/index', title: '首页', icon: 'mobile', component: 'Dashboard',id:'0' },
+        // { key: '/app/dashboard/index', title: '首页', icon: 'mobile', component: 'Dashboard',id:'0' },
         {
             key: '/app/count', title: '统计分析', icon: 'scan',
             subs: [

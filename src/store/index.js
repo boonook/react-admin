@@ -1,6 +1,6 @@
 import {observable,computed,action} from 'mobx';
 import history from '../utils/history';
-import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu} from './storage';
+import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu,getUserMenuBtn} from './storage';
 import routesConfig from '../routes/config';
 import {construct} from "@aximario/json-tree";
 class AppState {
@@ -10,6 +10,7 @@ class AppState {
     @observable isLogin =getIsLogin();
     @observable token =getToken();
     @observable userMenu =getUserMenu();
+    @observable userMenuBtn =getUserMenuBtn();
     @computed get msg(){
         return `${this.name} say  count is ${this.count}`
     }
@@ -17,7 +18,8 @@ class AppState {
         this.count +=1
     }
     @action changeUserMenu(data){
-        let routesConfigs={...routesConfig};
+        console.log('routesConfig',routesConfig);
+        let routesConfigs=JSON.parse(JSON.stringify(routesConfig));
         /*** 动态菜单 start***/
         let menuArrss=[];
         let userMenu = data;
@@ -55,10 +57,12 @@ class AppState {
             }
         };
         let menuArrs = uniqueArray(menuArrss,'key')||[];
+
         for (let i = 0;i<menuArrs.length;i++) {
             for(let j =0;j<userMenu.length;j++){
+                delete userMenu[j].id;
                 if(menuArrs[i].key === userMenu[j].path){
-                    menuArrs[i].id = userMenu[j].id||'';
+                    menuArrs[i].id = userMenu[j].menuId||'';
                     menuArrs[i].title = userMenu[j].menuName||'';
                     menuArrs[i].menuParentId = userMenu[j].menuParentId||'';
                     menus.push(menuArrs[i]);
@@ -96,7 +100,7 @@ class AppState {
         this.userInfo ={};
         this.isLogin = false;
         this.token = "";
-        this.userMenu =null;
+        this.userMenu ={};
         history.replace('/login')
     }
 }

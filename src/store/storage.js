@@ -36,3 +36,10 @@ export const setUserMenu = (data) => {
 export const getUserMenu = () => {
     return Cookie.get('userMenu');
 }
+
+export const setUserMenuBtn = (data) => {
+    Cookie.set('userMenuBtn',JSON.stringify(data))
+}
+export const getUserMenuBtn = () => {
+    return Cookie.get('userMenuBtn');
+}
