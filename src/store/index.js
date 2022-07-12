@@ -1,6 +1,6 @@
 import {observable,computed,action} from 'mobx';
 import history from '../utils/history';
-import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu,getUserMenuBtn} from './storage';
+import {getUserInfo,getIsLogin,getToken,setIsLogin,setToken,setUserInfo,getUserMenu,setUserMenu,getUserMenuBtn,setUserMenuBtn} from './storage';
 import routesConfig from '../routes/config';
 import {construct} from "@aximario/json-tree";
 class AppState {
@@ -18,6 +18,7 @@ class AppState {
         this.count +=1
     }
     @action changeUserMenu(data){
+        setUserMenuBtn(data);
         console.log('routesConfig',routesConfig);
         let routesConfigs=JSON.parse(JSON.stringify(routesConfig));
         /*** 动态菜单 start***/

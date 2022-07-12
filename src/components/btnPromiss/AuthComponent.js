@@ -1,5 +1,8 @@
 import {Button} from "antd";
 import React from "react";
+import {observer,inject} from 'mobx-react';
+
+@inject('appState') @observer
 class AuthComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -11,6 +14,22 @@ class AuthComponent extends React.Component {
 
     componentDidMount() {
         let btnStatus = (this.props.auth).split(":")||'';
+        let userMenuBtn=[];
+        if(this.props.appState.userMenuBtn && this.props.appState.userMenuBtn!='null'){
+            userMenuBtn = JSON.parse(this.props.appState.userMenuBtn);
+        }
+        // console.log('userMenuBtn',userMenuBtn);
+        // console.log('query',this.props.history.location.pathname);
+        let key = this.props.history.location.pathname;
+        let btnQuanxian = {
+            key 
+        }
+        userMenuBtn.forEach(item=>{
+            if(key==item.path){
+                btnQuanxian.quanxian = item.quanxian;
+            }
+        })
+        console.log('userMenuBtn',JSON.stringify(btnQuanxian));
         const btnPromiss = [{user:'add,delete,edit,view'},{menu:'view'}]
         let menuKey = [];
         btnPromiss.forEach(item=>{
