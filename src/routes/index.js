@@ -7,9 +7,8 @@ import DocumentTitle from 'react-document-title';
 import {observer,inject} from 'mobx-react';
 import AllComponents from '../components';
 import queryString from 'query-string';
-import routesConfig from './config';
 import Login from '../components/pages/Login'
-
+import history from '@/utils/history';
 @inject('appState') @observer
 class CRouter extends Component {
     requireLogin = (component) => {
@@ -19,11 +18,16 @@ class CRouter extends Component {
         }
         return component;
     };
+    
     render() {
+        let userMenu = this.props.appState.userMenu?JSON.parse(this.props.appState.userMenu):[];
+        if(this.props.appState.isLogin==undefined || !this.props.appState.isLogin){
+            history.replace('/login')
+        }
         return (
             <Switch>
-                {Object.keys(routesConfig).map(key =>
-                    routesConfig[key].map(r => {
+                {Object.keys(userMenu).map(key =>
+                    userMenu[key].map(r => {
                         const route = r => {
                             const Component = AllComponents[r.component];
                             return (

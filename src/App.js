@@ -4,11 +4,13 @@ import DocumentTitle from 'react-document-title';
 import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/HeaderCustom';
 import { Layout } from 'antd';
+import {observer,inject} from 'mobx-react';
 import { ThemePicker } from './components/widget';
 import { connectAlita } from 'redux-alita';
-import { BrowserRouter} from 'react-router-dom';
+import history from '@/utils/history';
 
 const { Content, Footer } = Layout;
+@inject('appState') @observer
 class App extends Component {
     state = {
         collapsed: false,
@@ -25,7 +27,10 @@ class App extends Component {
         }
     }
     componentDidMount() {
-
+        ////防止直接清除缓存跳转到了404
+        if(this.props.appState.isLogin==undefined || !this.props.appState.isLogin){
+            history.replace('/login')
+        }
     }
     getClientWidth = () => {
         const { setAlitaState } = this.props;

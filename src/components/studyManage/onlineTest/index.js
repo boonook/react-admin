@@ -15,7 +15,7 @@ class onlineTest extends React.Component {
     }
 
     onUploadDaTiJi=()=>{
-        debugger
+        
     }
 
 

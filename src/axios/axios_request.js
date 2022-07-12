@@ -97,7 +97,7 @@ class HttpRequest {
                     message.info(res.message,2)
                 }
             }else{
-                debugger
+                
                 message.error(res.message,2);
                 if(res && res.code+''==='202'){
                     appState.loginOut()

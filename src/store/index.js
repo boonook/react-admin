@@ -17,6 +17,7 @@ class AppState {
         this.count +=1
     }
     @action changeUserMenu(data){
+        let routesConfigs={...routesConfig};
         /*** 动态菜单 start***/
         let menuArrss=[];
         let userMenu = data;
@@ -30,7 +31,7 @@ class AppState {
                 menuArrss.push(menu)
             }
         }
-        spread(routesConfig.menus);
+        spread(routesConfigs.menus);
         let menus =[];
         let uniqueArray =function(array, key){
             if(array.length>0){
@@ -64,17 +65,16 @@ class AppState {
                 }
             }
         }
-        routesConfig.menus=[];
-        routesConfig.menus = construct(menus, {
+        routesConfigs.menus=[];
+        routesConfigs.menus = construct(menus, {
             id: 'id',
             pid: 'menuParentId',
             children: 'subs'
         });
-        routesConfig.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
-        // debugger
-        let menusBox = JSON.stringify(routesConfig);
+        routesConfigs.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
+        let menusBox = JSON.stringify(routesConfigs);
         this.userMenu = menusBox;
-        setUserMenu(routesConfig);
+        setUserMenu(routesConfigs);
     }
     @action changeName(name){
         this.name =name
@@ -97,8 +97,6 @@ class AppState {
         this.isLogin = false;
         this.token = "";
         this.userMenu =null;
-        // localStorage.removeItem('user');
-        debugger
         history.replace('/login')
     }
 }
