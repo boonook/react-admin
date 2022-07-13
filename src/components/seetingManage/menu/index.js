@@ -1,16 +1,62 @@
 import React from 'react';
 import {Table,Divider} from 'antd';
+import {getMenu} from '@/api/menu'
 
 class menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            list:[]
         };
     }
 
-    componentDidMount() {
+    getInit=()=>{
+        getMenu().then(res=>{
+            let data = res.data||[];
+            data.forEach(item=>{
+                item.key=item.id;
+                item.name=item.menuName;
+            })
+            data.push({
+                id:0,
+                path:'',
+            })
+            /**
+             * 将一维的扁平数组转换为多层级对象
+             * @param  {[type]} list 一维数组，数组中每一个元素需包含id和parent_id两个属性 
+             * @return {[type]} tree 多层级树状结构
+             */
+            function buildTree(list){
+                let temp = {};
+                let tree = {};
+                for(let i in list){
+                    temp[list[i].id] = list[i];
+                }
+                for(let i in temp){
+                    if(temp[i].menuParentId) {
+                        if(!temp[temp[i].menuParentId].children) {
+                            temp[temp[i].menuParentId].children = new Object();
+                        }
+                        temp[temp[i].menuParentId].children[temp[i].id] = temp[i];
+                    } else {
+                        tree[temp[i].id] =  temp[i];
+                    }
+                }
+                return tree;
+            }
+            let result = buildTree(data);
+            let datalist = result[0].children;
+            debugger
+            this.setState({
+                list:datalist
+            },()=>{
+                console.log('this.state.list',this.state.list);
+            })
+        })
+    }
 
+    componentDidMount() {
+        this.getInit();
     }
 
     onShow=()=>{
@@ -125,7 +171,7 @@ class menu extends React.Component {
             <div key={'menu'}>
                 <p style={{backgroundColor:'orange',padding:'15px',color:'#fff'}}>菜单管理</p>
                 <div>
-                <Table columns={columns} dataSource={data} />
+                <Table pagination={false} columns={columns} dataSource={this.state.list} />
                 </div>
             </div>
         )
