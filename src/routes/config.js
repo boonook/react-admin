@@ -28,15 +28,15 @@ export default {
                 { key: '/app/seetingManage/role', title: '角色管理', component: 'role'},
                 { key: '/app/seetingManage/menu', title: '菜单管理', component: 'menu'}
             ]
-        },
+        }
+    ],
+    others: [
         {
             key: '/app/SelfCenter', title: '个人中心', icon: 'scan',
             subs: [
                 { key: '/app/SelfCenter/SelfInfo', title: '个人信息', component: 'SelfInfo'}
             ]
-        }
-    ],
-    others: [
+        },
         { key: '/app/test/test', title: '测试菜单', icon: 'mobile', component: 'test' },
     ]
 }

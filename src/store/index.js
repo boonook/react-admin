@@ -79,6 +79,7 @@ class AppState {
         routesConfigs.menus.unshift({key: "/app/dashboard/index", title: "首页", icon: "mobile", component: "Dashboard",id:'0',menuParentId:'0'});
         let menusBox = JSON.stringify(routesConfigs);
         this.userMenu = menusBox;
+        this.userMenuBtn = JSON.stringify(data);
         setUserMenu(routesConfigs);
     }
     @action changeName(name){

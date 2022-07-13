@@ -19,6 +19,7 @@ class AuthComponent extends React.Component {
         }else{
             return {}
         }
+        console.log('123123123');
         // console.log('userMenuBtn',userMenuBtn);
         // console.log('query',this.props.history.location.pathname);
         let key = this.props.history.location.pathname;
@@ -59,7 +60,7 @@ class AuthComponent extends React.Component {
 
     render() {
         return (
-            <span>{this.state.show?<Button onClick={(e)=>{this.onBtn(e)}}>{this.state.title}</Button>:null}</span>
+            <span key={this.props.key} {...this.props}>{this.state.show?<Button onClick={(e)=>{this.onBtn(e)}}>{this.state.title}</Button>:null}</span>
         )
     }
 }

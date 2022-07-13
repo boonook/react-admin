@@ -41,5 +41,6 @@ export const setUserMenuBtn = (data) => {
     Cookie.set('userMenuBtn',JSON.stringify(data))
 }
 export const getUserMenuBtn = () => {
+    console.log('123123123456456');
     return Cookie.get('userMenuBtn');
 }

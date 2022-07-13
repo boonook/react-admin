@@ -4,7 +4,7 @@
 import React from 'react';
 import {Table, Button,Popconfirm,Pagination} from 'antd';
 import moment from "moment";
-import {getUserlist,delUserlist} from '../../../api/user';
+import {getUserlist,delUserlist} from '@/api/user';
 import AddUser from './commont/AddUser'
 import AssignPermissions from "./commont/AssignPermissions";
 

@@ -7,8 +7,8 @@ import {observer,inject} from 'mobx-react';
 import {connectAlita} from "redux-alita";
 import { PwaInstaller } from '../widget';
 import {login,getMenu} from '../../api/auth'
-import AuthComponent from '../../components/btnPromiss/AuthComponent'
-import UnStatusMobx from '../../components/pages/UnStatusMobx'
+// import AuthComponent from '../../components/btnPromiss/AuthComponent'
+// import UnStatusMobx from '../../components/pages/UnStatusMobx'
 
 @inject('appState') @observer
 class Login extends React.Component {
