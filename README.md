@@ -5,3 +5,5 @@
 # 按钮权限控制，根据用户的角色的不同加载对应角色的按钮具体可参考src/components/btnPromiss/AuthComponent.js
 SiderCustom.jsx配置动态的菜单路由
 # 需要加入面包屑的功能，方便用户查询自己打开了那些菜单
+
+# 菜单权限，按钮权限
