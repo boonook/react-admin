@@ -13,10 +13,11 @@ class AuthComponent extends React.Component {
     }
 
     componentDidMount() {
-        let btnStatus = (this.props.auth).split(":")||'';
         let userMenuBtn=[];
         if(this.props.appState.userMenuBtn && this.props.appState.userMenuBtn!='null'){
             userMenuBtn = JSON.parse(this.props.appState.userMenuBtn);
+        }else{
+            return {}
         }
         // console.log('userMenuBtn',userMenuBtn);
         // console.log('query',this.props.history.location.pathname);
@@ -29,39 +30,17 @@ class AuthComponent extends React.Component {
                 btnQuanxian.quanxian = item.quanxian;
             }
         })
-        console.log('userMenuBtn',JSON.stringify(btnQuanxian));
-        const btnPromiss = [{user:'add,delete,edit,view'},{menu:'view'}]
-        let menuKey = [];
-        btnPromiss.forEach(item=>{
-            for (let key in item){
-                menuKey.push(key)
-            }
-        })
-        console.log(menuKey);
-        let isMenu = false;
-        menuKey.map(item=>{
-            if(item+'' ===(btnStatus[0]+'')){
-                isMenu = true;////说明我们的可以查看到这个菜单
-                return
-            }
-        })
+        console.log('userMenuBtn',btnQuanxian.quanxian);
+        const btnPromiss = btnQuanxian.quanxian.split(',');
         ///判断我们是否可以查看到这个按钮
         let isbtn = false;
         btnPromiss.map(item=>{
-            let btnStatusMenu = btnStatus[0]
-            let btn = item[btnStatusMenu];
-            if(btn===undefined){
-                return
+            if(item==this.props.auth){
+                isbtn=true;
+                return;
             }
-            let btnArr = btn.split(',');
-            btnArr.map(i=>{
-                if(i===btnStatus[1]){
-                    isbtn=true
-                    return
-                }
-            })
         })
-        if(isMenu && isbtn){
+        if(isbtn){
             this.setState({
                 show:true,
                 title:this.props.title?this.props.title:this.state.title
