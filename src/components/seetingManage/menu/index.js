@@ -62,84 +62,60 @@ class menu extends React.Component {
             {
               key: 1,
               name: '统计分析',
-              age: 60,
               menuParentId:0,
-              address: 'New York No. 1 Lake Park',
               children: [
                 {
                   key: 11,
                   name: '学习统计',
-                  age: 42,
-                  address: 'New York No. 2 Lake Park',
                 },
                 {
                   key: 12,
                   name: '党员统计',
-                  age: 30,
-                  address: 'New York No. 3 Lake Park',
                 }, 
               ],
             },
             {
               key: 2,
               name: '学习管理',
-              age: 32,
               menuParentId:0,
-              address: 'Sidney No. 1 Lake Park',
               children: [
                 {
                   key: 21,
                   name: '在线考试',
-                  age: 42,
-                  address: 'New York No. 2 Lake Park',
                 },
               ],
             },
             {
                 key: 3,
                 name: '新闻管理',
-                age: 32,
                 menuParentId:0,
-                address: 'Sidney No. 1 Lake Park',
                 children: [
                   {
                     key: 31,
                     name: '新闻通知',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
                   },
                   {
                     key: 32,
                     name: '新闻中心',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
                   },
                 ],
             },
             {
                 key: 4,
                 name: '系统管理',
-                age: 32,
                 menuParentId:0,
-                address: 'Sidney No. 1 Lake Park',
                 children: [
                   {
                     key: 41,
                     name: '用户管理',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
                   },
                   {
                     key: 42,
                     name: '角色管理',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
                   },
                   {
                     key: 42,
                     name: '菜单管理',
-                    age: 42,
-                    address: 'New York No. 2 Lake Park',
                   },
                 ],
             },
