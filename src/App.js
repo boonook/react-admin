@@ -57,9 +57,9 @@ class App extends Component {
                         <Content style={{ margin: '0 16px', overflow: 'initial', flex: '1 1 0' }}>
                             <Routes auth={auth} />
                         </Content>
-                        <Footer style={{ textAlign: 'center' }}>
+                        {/* <Footer style={{ textAlign: 'center' }}>
                             React-Admin ©{new Date().getFullYear()} Created by 865470087@qq.com
-                        </Footer>
+                        </Footer> */}
                     </Layout>
                 </Layout>
             </DocumentTitle>

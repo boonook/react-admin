@@ -81,6 +81,8 @@ class AppState {
         this.userMenu = menusBox;
         this.userMenuBtn = JSON.stringify(data);
         setUserMenu(routesConfigs);
+        this.isLogin = true;
+        setIsLogin(true);
     }
     @action changeName(name){
         this.name =name
@@ -88,9 +90,7 @@ class AppState {
     @action login(data,e){
         let info = data||{};
         this.userInfo =info.userInfo[0]||{};
-        this.isLogin = true;
         this.token = info.token||"";
-        setIsLogin(true);
         setToken(info.token||"");
         setUserInfo(info.userInfo[0]||{})
     }

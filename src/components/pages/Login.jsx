@@ -59,6 +59,8 @@ class Login extends React.Component {
                                         }
                                     }
 
+                                }else{
+                                    this.props.appState.loginOut();
                                 }
                             });
                         }

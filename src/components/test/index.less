@@ -1,0 +1,23 @@
+.messagebox{
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  .messagelist{
+    flex:1;
+    background-color: orange;
+    margin-top:16px;
+  }
+  .inputbox{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    width:100%;
+    background-color: yellow;
+    textarea{
+      resize:none;
+    }
+    :deep(.ant-input){
+      border: none !important;;
+    }
+  }
+}

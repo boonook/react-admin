@@ -1,8 +1,10 @@
 /**
  * Created by hao.cheng on 2017/4/23.
  */
+import { Input } from 'antd';
 import React from 'react';
-
+import './index.less';
+const { TextArea } = Input;
 class test extends React.Component {
     state = {
         size: 'default',
@@ -11,8 +13,16 @@ class test extends React.Component {
     };
     render() {
         return (
-            <div className="gutter-example button-demo" key={'test'}>
-                <p>测试界面--------</p>
+            <div className="messagebox" key={'test'}>
+                <div className="messagelist">
+                    qweqweqwe
+                </div>
+                <div className='inputbox'>
+                    <TextArea rows={4} bordered={false} placeholder="maxLength is 6" maxLength={6} />
+                    <div>
+                        <button>发送</button>
+                    </div>
+                </div>
             </div>
         )
     }
