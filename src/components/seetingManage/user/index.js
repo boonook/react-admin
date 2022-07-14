@@ -44,6 +44,13 @@ class user extends React.Component {
                     align:'center'
                 },
                 {
+                    ///roleName
+                    title: '角色名称',
+                    dataIndex: 'roleName',
+                    key: 'roleName',
+                    align:'left'
+                },
+                {
                     title: '创建时间',
                     dataIndex: 'createDate',
                     key: 'createDate',
@@ -58,7 +65,7 @@ class user extends React.Component {
                     title: '操作',
                     dataIndex: '',
                     key: 'x',
-                    align:'center',
+                    align:'right',
                     render: (text, record) =>
                         <div>
                             <Popconfirm
@@ -82,6 +89,18 @@ class user extends React.Component {
 
     componentDidMount(){
         this.getUserData();
+    }
+
+    handleDelete=(record)=>{
+
+    }
+
+    onEditor=(record)=>{
+
+    }
+
+    onAssignPermissions=(record)=>{
+
     }
 
     ///获取用户列表

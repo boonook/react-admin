@@ -40,7 +40,7 @@ class role extends React.Component {
                     dataIndex: '',
                     key: 'x',
                     width:160,
-                    align:'center',
+                    align:'right',
                     render: (text, record) =>
                         <div>
                             <Popconfirm
@@ -91,6 +91,9 @@ class role extends React.Component {
         this.child.myName('edit',data)
     };
 
+    onAssignPermissions=(data)=>{
+
+    }
 
     onRef = (ref) => {//react新版本处理方式
         this.child = ref
