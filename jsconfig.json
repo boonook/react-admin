@@ -1,6 +1,37 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
     "experimentalDecorators":true,
-    "emitDecoratorMetadata":true
-  }
+    "emitDecoratorMetadata":true,
+    "types": [],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "declaration": true,
+    "jsx": "react-jsx",
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "src",
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "distElectron",
+    "mock",
+    "docs"
+  ]
 }

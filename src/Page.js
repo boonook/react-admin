@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import NotFound from './components/pages/NotFound';
-import Login from './components/pages/Login';
+import NotFound from '@/components/pages/NotFound';
+import Login from '@/components/pages/Login';
 import App from './App';
 import history from './utils/history'
 ////需要出离当用户登陆后我们将login重定向到首页，放置用户在登陆状态下，通过修改url直接跳转到登陆界面中去
